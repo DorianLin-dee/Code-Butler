@@ -1,0 +1,30 @@
+# 备份文件
+backup/
+
+# 音频文件
+audio_downloads/
+
+# 输出文件
+outputs/
+
+# 论文相关
+thesis/
+
+# 临时文件
+*.zip
+*.pyc
+*.pyo
+__pycache__/
+.DS_Store
+
+# 文档文件（非代码）
+*.docx
+*.pdf
+*.png
+
+# 其他临时输出
+*.txt
+*.md
+!README.md
+!skill说明文档.md
+!SKILL.md
