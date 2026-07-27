@@ -31,9 +31,25 @@ description: "分析书籍、播客、视频等学习内容，生成中文思维
 ### 完整工作流（推荐）
 
 ```
-用户给链接 → 下载音频 + 标题简化命名 + 网络版文稿 → 用户用豆包转录
-                                                            ↓
+用户给链接 → 下载音频 + 自动编号 + 标题命名 + 网络版文稿 → 用户用豆包转录
+                                                                 ↓
 生成 HTML ← 处理转录稿（格式化 + 说话者 + 词语校正）
+```
+
+**文件夹结构：每个转录一个独立文件夹，自动编号递增（01_, 02_, 03_...）**
+
+```
+output/
+├── 01_秦深涛_神经接口的下一个十年/
+│   ├── audio.mp3
+│   ├── transcript_web.md      (网络版文稿)
+│   ├── doubao_transcript.txt   (用户放豆包转录稿)
+│   ├── transcript_processed.md (处理后转录稿)
+│   ├── analysis.html         (HTML 阅读页)
+│   ├── key_points.md         (核心观点)
+│   └── mindmap.md            (思维导图)
+├── 02_张一鸣_字节跳动创业故事/
+│   └── ...
 ```
 
 **使用方式：把视频/播客链接或音频文件直接发给我，我会引导完成。**
@@ -42,13 +58,15 @@ description: "分析书籍、播客、视频等学习内容，生成中文思维
 
 #### 手动命令版
 
-**步骤 1：下载并准备（含网络版文稿）**
+**步骤 1：下载并准备（自动编号 + 独立文件夹 + 网络版文稿）**
 ```bash
 python3 .trae/skills/learning-content-analyzer/learning_pipeline.py "视频URL或音频文件"
 ```
 自动完成：
 - 下载音频（B站/YouTube/本地文件）
+- **自动分配序号**（扫描现有文件夹，按序递增：01_, 02_, 03_...）
 - **用原链接标题简化命名**（去掉特殊字符，截取前40字）
+- **创建独立文件夹**：`{序号}_{标题}`
 - **输出一版基于网络搜索的文稿**（搜索网上现成文稿，找不到则用简介）
 - 识别说话者姓名
 - 提示用户打开豆包网页版转录
@@ -56,7 +74,7 @@ python3 .trae/skills/learning-content-analyzer/learning_pipeline.py "视频URL�
 **步骤 2：处理豆包转录稿 + 生成 HTML**
 ```bash
 python3 .trae/skills/learning-content-analyzer/learning_pipeline.py \
-  --process 豆包转录稿.txt \
+  --process 01_xxx/doubao_transcript.txt \
   --speakers "张津剑,秦深涛"
 ```
 自动完成：
@@ -65,6 +83,7 @@ python3 .trae/skills/learning-content-analyzer/learning_pipeline.py \
 - 词语校正（1200+ 条术语字典）
 - 口语化表达清理
 - 生成 HTML 阅读页 + 思维导图 + 核心观点
+- **所有输出都在同一个项目文件夹里**
 
 ---
 
