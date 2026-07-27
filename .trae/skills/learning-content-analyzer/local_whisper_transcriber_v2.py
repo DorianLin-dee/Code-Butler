@@ -260,16 +260,17 @@ def _select_device():
 
 
 def transcribe_local(audio_path, model_size='base', language=None, speaker_diarization=False, 
-                     initial_prompt=None, vad_filter=True, callback=None):
+                     initial_prompt=None, vad_filter=True, callback=None, speakers=None):
     """使用本地 Whisper 转录
 
     说话者识别逻辑（智能开关）：
       speaker_diarization=True  → pyannote 音色识别（精准，慢）
-      speaker_diarization=False → 简单分组（基于沉默间隔，快，默认）
+      speaker_diarization=False → 智能分组（基于沉默间隔+内容启发式，快，默认）
 
     优化参数：
       initial_prompt: 上下文提示词，显著提高专有名词识别准确率
       vad_filter: 是否启用 VAD 静音过滤（取决于 whisper 版本是否支持）
+      speakers: 说话者列表（从 shownotes 提取），用于确定分组人数和内容启发式判断
     """
     try:
         import whisper
@@ -352,9 +353,10 @@ def transcribe_local(audio_path, model_size='base', language=None, speaker_diari
         # 用户显式 --speaker，用 pyannote 音色识别（精准但慢）
         result = add_speaker_labels(result, audio_path)
     else:
-        # 默认用简单分组（快，基于沉默间隔）
-        result = add_simple_speaker_labels(result)
-        print(f"🏷️ 已启用简单说话者分组（如需精准音色识别请加 --speaker）")
+        # 默认用智能分组（快，基于沉默间隔+内容启发式）
+        num_speakers = len(speakers) if speakers else 2
+        result = add_smart_speaker_labels(result, num_speakers=num_speakers, speakers=speakers)
+        print(f"🏷️ 已启用智能说话者分组（{num_speakers} 位说话者），如需精准音色识别请加 --speaker")
 
     print(f"✅ 转录成功！")
     if 'language' in result:
@@ -464,14 +466,19 @@ def add_speaker_labels(result, audio_path):
         return add_simple_speaker_labels(result)
 
 
-def add_simple_speaker_labels(result, num_speakers=2):
-    """简单的说话者识别：基于间隔和对话模式分组
+def add_smart_speaker_labels(result, num_speakers=2, speakers=None):
+    """智能说话者识别：基于沉默间隔 + 内容启发式 + 上下文理解
 
     改进点：
     - SPEAKER 编号从 0 开始（与 assign_speaker_names 映射一致）
-    - 默认 2 人对话，按实际人数循环而非硬编码 3
-    - 沉默阈值从 1.5s 提高到 3s（减少过度合并）
-    - 加入内容启发式：问号结尾、长度对比辅助判断切换
+    - 支持可变数量说话者（从 shownotes 获取）
+    - 内容启发式：问号结尾（提问）+ 长度对比（回答长）+ 上下文理解（称呼、自我介绍）
+    - 不是机械轮流分配，而是智能判断说话者切换
+
+    Args:
+        result: whisper 转录结果
+        num_speakers: 说话者数量（从 shownotes 提取）
+        speakers: 说话者姓名列表（用于上下文理解）
     """
     from collections import defaultdict
 
@@ -479,7 +486,10 @@ def add_simple_speaker_labels(result, num_speakers=2):
     if not segments:
         return result
 
-    # 首先，合并时间上非常接近的片段
+    if speakers is None:
+        speakers = []
+
+    # 首先，合并时间上非常接近的片段（< 3秒沉默）
     merged_segments = []
     if segments:
         current_group = [segments[0]]
@@ -496,17 +506,91 @@ def add_simple_speaker_labels(result, num_speakers=2):
                 current_group = [curr_seg]
         merged_segments.append(current_group)
 
-    # 为每个组分配说话者（从 SPEAKER_00 开始，与 assign_speaker_names 一致）
-    speaker_counter = 0
+    # 将每组转换为带文本的单元
+    groups_with_text = []
     for group in merged_segments:
-        speaker_id = f"SPEAKER_{speaker_counter:02d}"
-        for seg in group:
-            seg['speaker'] = speaker_id
+        group_text = ''.join(s.get('text', '') for s in group).strip()
+        groups_with_text.append({
+            'segments': group,
+            'start': group[0].get('start', 0),
+            'end': group[-1].get('end', 0),
+            'text': group_text,
+            'length': len(group_text),
+        })
 
-        # 按实际人数循环
-        speaker_counter += 1
-        if speaker_counter >= num_speakers:
-            speaker_counter = 0
+    # 智能分配说话者
+    # 策略：
+    # 1. 第一段：如果是自我介绍（"我是XXX"），分配给第一个说话者
+    # 2. 后续段：基于内容启发式判断是否切换
+    # 3. 对话模式：提问（短、问号）→ 回答（长）→ 提问（短、问号）→ ...
+    current_speaker_idx = 0
+    speaker_counter = 0
+
+    for i, group in enumerate(groups_with_text):
+        text = group['text']
+        length = group['length']
+
+        # 第一段特殊处理：判断是否自我介绍
+        if i == 0:
+            # 检查是否包含"大家好""我是""欢迎"等主持人口气
+            is_host_intro = any(keyword in text for keyword in ['大家好', '欢迎', '我是', '这里是', '节目'])
+            if is_host_intro and speakers:
+                # 主持人通常是第一个
+                current_speaker_idx = 0
+            else:
+                current_speaker_idx = speaker_counter % num_speakers
+                speaker_counter += 1
+        else:
+            prev_group = groups_with_text[i-1]
+            prev_text = prev_group['text']
+            prev_length = prev_group['length']
+            gap = group['start'] - prev_group['end']
+
+            should_switch = False
+
+            # 规则1：间隔超过 4 秒，很可能换人
+            if gap > 4.0:
+                should_switch = True
+
+            # 规则2：上一段很短（提问），这一段很长（回答）→ 切换
+            if prev_length < 30 and length > 60:
+                should_switch = True
+
+            # 规则3：上一段很长（回答），这一段很短（提问）→ 切换
+            if prev_length > 60 and length < 30:
+                should_switch = True
+
+            # 规则4：上一段以问号结尾（提问），这一段较长 → 切换（回答）
+            if prev_text.rstrip().endswith(('?', '？')) and length > 30:
+                should_switch = True
+
+            # 规则5：上下文理解 - 称呼检测
+            # 如果这一段提到了某说话者的名字，很可能是另一个人在说话
+            for j, speaker_name in enumerate(speakers):
+                if speaker_name in text and j != current_speaker_idx:
+                    # 提到了其他说话者的名字，可能是在回应
+                    # 但也要考虑自己说自己名字的情况（自我介绍）
+                    if i > 2 and not any(speaker_name in g['text'] for g in groups_with_text[:i-2]):
+                        should_switch = True
+                        current_speaker_idx = j
+                        break
+
+            # 规则6：自我介绍检测
+            # 如果这一段包含"我是XXX"且XXX是已知说话者名，分配给该说话者
+            for j, speaker_name in enumerate(speakers):
+                if f'我是{speaker_name}' in text or f'我叫{speaker_name}' in text:
+                    current_speaker_idx = j
+                    should_switch = False
+                    break
+
+            if should_switch and not any(f'我是{s}' in text or f'我叫{s}' in text for s in speakers):
+                # 切换到下一个说话者（支持多人循环）
+                current_speaker_idx = (current_speaker_idx + 1) % num_speakers
+
+        # 分配说话者
+        speaker_id = f"SPEAKER_{current_speaker_idx:02d}"
+        for seg in group['segments']:
+            seg['speaker'] = speaker_id
 
     return result
 
@@ -1295,8 +1379,9 @@ def main():
         auto_speakers, auto_speakers_list = auto_assign_speakers(title, description)
         if auto_speakers:
             speaker_names.update(auto_speakers)
-            # 既然识别到了说话者，自动启用说话者识别效果更好
-            args.speaker = True
+            print(f"🎙️ 从 shownotes 识别到 {len(auto_speakers_list)} 位说话者: {', '.join(auto_speakers_list)}")
+            # 不再自动启用 --speaker（智能分组已足够好，且不需要 pyannote 依赖）
+            # args.speaker = True
 
     # 生成 initial_prompt（提高专有名词识别准确率）
     initial_prompt = args.initial_prompt
@@ -1338,7 +1423,8 @@ def main():
         language=language, 
         speaker_diarization=args.speaker,
         initial_prompt=initial_prompt if initial_prompt else None,
-        vad_filter=not args.no_vad
+        vad_filter=not args.no_vad,
+        speakers=auto_speakers_list if auto_speakers_list else None
     )
     
     # 第三步：生成各种格式的转录稿（统一使用 transcript_{序号}_{姓氏} 命名，所有格式共用同一序号）

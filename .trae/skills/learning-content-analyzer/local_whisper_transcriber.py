@@ -169,12 +169,19 @@ def _select_device():
     return "cpu"
 
 
-def transcribe_local(audio_path, model_size='base', language=None, speaker_diarization=False):
+def transcribe_local(audio_path, model_size='base', language=None, speaker_diarization=False, speakers=None):
     """使用本地 Whisper 转录
 
     说话者识别逻辑（智能开关）：
       speaker_diarization=True  → pyannote 音色识别（精准，慢）
-      speaker_diarization=False → 简单分组（基于沉默间隔，快，默认）
+      speaker_diarization=False → 智能分组（基于沉默间隔+内容启发式，快，默认）
+
+    Args:
+        audio_path: 音频文件路径
+        model_size: 模型大小（tiny/base/small/medium/large）
+        language: 语言代码（如 'zh', 'en', 'ja'）
+        speaker_diarization: 是否启用 pyannote 音色识别
+        speakers: 说话者列表（从 shownotes 提取），用于智能分组
     """
     try:
         import whisper
@@ -223,9 +230,10 @@ def transcribe_local(audio_path, model_size='base', language=None, speaker_diari
         # 用户显式 --speaker，用 pyannote 音色识别（精准但慢）
         result = add_speaker_labels(result, audio_path)
     else:
-        # 默认用简单分组（快，基于沉默间隔）
-        result = add_simple_speaker_labels(result)
-        print(f"🏷️ 已启用简单说话者分组（如需精准音色识别请加 --speaker）")
+        # 默认用智能分组（快，基于沉默间隔+内容启发式）
+        num_speakers = len(speakers) if speakers else 2
+        result = add_smart_speaker_labels(result, num_speakers=num_speakers, speakers=speakers)
+        print(f"🏷️ 已启用智能说话者分组（{num_speakers} 位说话者），如需精准音色识别请加 --speaker")
 
     print(f"✅ 转录成功！")
     if 'language' in result:
@@ -311,20 +319,21 @@ def add_speaker_labels(result, audio_path):
         return result
 
     except ImportError:
-        print(f"⚠️ pyannote.audio 未安装，回退到简单说话者分组")
+        print(f"⚠️ pyannote.audio 未安装，回退到智能说话者分组")
         print(f"   安装方式：pip3.11 install pyannote.audio torch")
-        return add_simple_speaker_labels(result)
+        return add_smart_speaker_labels(result)
     except Exception as e:
-        print(f"⚠️ 音色识别失败: {e}，回退到简单分组")
-        return add_simple_speaker_labels(result)
+        print(f"⚠️ 音色识别失败: {e}，回退到智能分组")
+        return add_smart_speaker_labels(result)
 
-def add_simple_speaker_labels(result, num_speakers=2):
-    """简单的说话者识别：基于间隔和对话模式分组
+def add_smart_speaker_labels(result, num_speakers=2, speakers=None):
+    """智能说话者识别：基于沉默间隔 + 内容启发式 + 上下文理解
 
     改进点：
     - SPEAKER 编号从 0 开始（与 assign_speaker_names 映射一致）
-    - 默认 2 人对话，按实际人数循环而非硬编码 3
-    - 沉默阈值从 1.5s 提高到 3s（减少过度合并）
+    - 支持可变数量说话者（从 shownotes 获取）
+    - 内容启发式：问号结尾（提问）+ 长度对比（回答长）+ 上下文理解（称呼、自我介绍）
+    - 不是机械轮流分配，而是智能判断说话者切换
     """
     from collections import defaultdict
 
@@ -332,7 +341,10 @@ def add_simple_speaker_labels(result, num_speakers=2):
     if not segments:
         return result
 
-    # 首先，合并时间上非常接近的片段
+    if speakers is None:
+        speakers = []
+
+    # 首先，合并时间上非常接近的片段（< 3秒沉默）
     merged_segments = []
     if segments:
         current_group = [segments[0]]
@@ -349,19 +361,69 @@ def add_simple_speaker_labels(result, num_speakers=2):
                 current_group = [curr_seg]
         merged_segments.append(current_group)
 
-    # 为每个组分配说话者（从 SPEAKER_00 开始，与 assign_speaker_names 一致）
-    speaker_counter = 0
+    # 将每组转换为带文本的单元
+    groups_with_text = []
     for group in merged_segments:
-        speaker_id = f"SPEAKER_{speaker_counter:02d}"
-        for seg in group:
+        group_text = ''.join(s.get('text', '') for s in group).strip()
+        groups_with_text.append({
+            'segments': group,
+            'start': group[0].get('start', 0),
+            'end': group[-1].get('end', 0),
+            'text': group_text,
+            'length': len(group_text),
+        })
+
+    # 智能分配说话者
+    current_speaker_idx = 0
+
+    for i, group in enumerate(groups_with_text):
+        text = group['text']
+        length = group['length']
+
+        # 第一段特殊处理
+        if i == 0:
+            is_host_intro = any(keyword in text for keyword in ['大家好', '欢迎', '我是', '这里是', '节目'])
+            if is_host_intro and speakers:
+                current_speaker_idx = 0
+        else:
+            prev_group = groups_with_text[i-1]
+            prev_text = prev_group['text']
+            prev_length = prev_group['length']
+            gap = group['start'] - prev_group['end']
+
+            should_switch = False
+
+            if gap > 4.0:
+                should_switch = True
+            if prev_length < 30 and length > 60:
+                should_switch = True
+            if prev_length > 60 and length < 30:
+                should_switch = True
+            if prev_text.rstrip().endswith(('?', '？')) and length > 30:
+                should_switch = True
+
+            for j, speaker_name in enumerate(speakers):
+                if speaker_name in text and j != current_speaker_idx:
+                    if i > 2 and not any(speaker_name in g['text'] for g in groups_with_text[:i-2]):
+                        should_switch = True
+                        current_speaker_idx = j
+                        break
+
+            for j, speaker_name in enumerate(speakers):
+                if f'我是{speaker_name}' in text or f'我叫{speaker_name}' in text:
+                    current_speaker_idx = j
+                    should_switch = False
+                    break
+
+            if should_switch and not any(f'我是{s}' in text or f'我叫{s}' in text for s in speakers):
+                current_speaker_idx = (current_speaker_idx + 1) % num_speakers
+
+        speaker_id = f"SPEAKER_{current_speaker_idx:02d}"
+        for seg in group['segments']:
             seg['speaker'] = speaker_id
 
-        # 按实际人数循环
-        speaker_counter += 1
-        if speaker_counter >= num_speakers:
-            speaker_counter = 0
-
     return result
+
 
 def format_timestamp(seconds):
     """将秒数转换为 HH:MM:SS 格式"""

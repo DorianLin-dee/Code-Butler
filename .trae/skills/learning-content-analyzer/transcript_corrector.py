@@ -959,12 +959,13 @@ def detect_speakers_from_content(segments, title=''):
 
 
 def assign_speakers_to_segments(segments, speakers):
-    """给片段分配说话者（基于简单的交替对话模型）
+    """给片段分配说话者（智能启发式：间隔 + 内容 + 上下文理解）
 
-    对于没有音色识别的转录稿，使用启发式方法：
-    - 前几段自我介绍的人 → 主持人
-    - 第一段长回答 → 嘉宾
-    - 然后交替（如果沉默间隔长就切换）
+    策略：
+    - 第一段：如果是自我介绍（"大家好""欢迎""我是"）→ 主持人
+    - 后续段：基于间隔、长度对比、问号结尾判断切换
+    - 上下文理解：称呼检测（提到其他说话者名）、自我介绍检测（"我是XXX"）
+    - 不是机械轮流分配，而是智能判断
 
     返回: segments 列表，每个增加 speaker 字段
     """
@@ -972,47 +973,57 @@ def assign_speakers_to_segments(segments, speakers):
         return segments
 
     if not speakers:
-        # 没有识别到说话者，默认 SPEAKER_01 / SPEAKER_02
         speakers = [
             {'name': 'SPEAKER_01', 'role': '主持人'},
             {'name': 'SPEAKER_02', 'role': '嘉宾'},
         ]
 
-    # 策略：基于片段间隔和内容长度来判断切换
-    # 短片段（提问）→ 主持人
-    # 长片段（回答）→ 嘉宾
-    # 间隔长 → 可能换人
-
+    speaker_names = [s['name'] for s in speakers]
     current_speaker_idx = 0
-    segments[0]['speaker'] = speakers[0]['name']
+
+    # 第一段特殊处理
+    first_text = segments[0].get('text', '')
+    is_host_intro = any(keyword in first_text for keyword in ['大家好', '欢迎', '我是', '这里是', '节目'])
+    if is_host_intro and len(speakers) > 0:
+        current_speaker_idx = 0
+    segments[0]['speaker'] = speakers[current_speaker_idx]['name']
 
     for i in range(1, len(segments)):
         prev_seg = segments[i-1]
         curr_seg = segments[i]
         gap = curr_seg['start'] - prev_seg['end']
-        curr_len = len(curr_seg['text'])
-        prev_len = len(prev_seg['text'])
+        curr_len = len(curr_seg.get('text', ''))
+        prev_len = len(prev_seg.get('text', ''))
 
         should_switch = False
 
-        # 规则1：间隔超过 2 秒，可能换人
-        if gap > 2.0:
+        if gap > 4.0:
+            should_switch = True
+        if prev_len < 30 and curr_len > 60:
+            should_switch = True
+        if prev_len > 60 and curr_len < 30:
+            should_switch = True
+        if prev_seg.get('text', '').rstrip().endswith(('?', '？')) and curr_len > 30:
             should_switch = True
 
-        # 规则2：上一段很短（提问），这一段很长（回答）→ 切换到嘉宾
-        if prev_len < 20 and curr_len > 50:
-            should_switch = True
+        # 上下文理解：称呼检测
+        for j, speaker_name in enumerate(speaker_names):
+            curr_text = curr_seg.get('text', '')
+            if speaker_name in curr_text and j != current_speaker_idx:
+                if i > 2 and not any(speaker_name in s.get('text', '') for s in segments[:i-2]):
+                    should_switch = True
+                    current_speaker_idx = j
+                    break
 
-        # 规则3：上一段很长（回答），这一段很短（提问）→ 切换到主持人
-        if prev_len > 50 and curr_len < 20:
-            should_switch = True
+        # 上下文理解：自我介绍检测
+        for j, speaker_name in enumerate(speaker_names):
+            curr_text = curr_seg.get('text', '')
+            if f'我是{speaker_name}' in curr_text or f'我叫{speaker_name}' in curr_text:
+                current_speaker_idx = j
+                should_switch = False
+                break
 
-        # 规则4：内容以问号结尾，下一段很可能是另一个人
-        if prev_seg['text'].rstrip().endswith(('?', '？')) and curr_len > 15:
-            should_switch = True
-
-        if should_switch:
-            # 支持多人切换（不再硬编码 1 - idx）
+        if should_switch and not any(f'我是{s}' in curr_seg.get('text', '') or f'我叫{s}' in curr_seg.get('text', '') for s in speaker_names):
             num_speakers = len(speakers)
             current_speaker_idx = (current_speaker_idx + 1) % num_speakers
 
