@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """
-视频转录工具 - 使用 Whisper API 或本地 Whisper 转录视频音频
+视频转录工具 - 支持 Whisper API 和本地 Whisper 转录
 支持 B站视频下载和自动转录
+
+推荐转录方式：豆包语音识别（https://www.doubao.com/chat/）
+处理豆包转录稿：python3 process_doubao_transcript.py 转录稿.txt
 """
 
 import os
@@ -13,9 +16,7 @@ from pathlib import Path
 def install_dependencies():
     """检查并提示安装依赖"""
     required = ['yt-dlp']
-    optional_local_whisper = ['whisper']
-    optional_api = ['openai']
-    
+
     print("正在检查依赖...")
     
     for package in required:
@@ -87,13 +88,13 @@ def transcribe_with_whisper_api(audio_path, api_key=None, model='whisper-1'):
 def transcribe_with_local_whisper(audio_path, model='base'):
     """使用本地 Whisper 转录"""
     import whisper
-    
+
     print(f"🎤 正在加载本地 Whisper 模型: {model}")
     model = whisper.load_model(model)
-    
+
     print(f"📝 正在转录: {audio_path}")
     result = model.transcribe(audio_path, word_timestamps=True)
-    
+
     return result
 
 
@@ -127,16 +128,16 @@ def generate_transcript_with_timestamps(result, output_file='transcript.txt'):
 
 def main():
     parser = argparse.ArgumentParser(
-        description='视频转录工具 - 支持 B站视频下载和 Whisper 转录'
+        description='视频转录工具 - 支持 B站视频下载和多种转录方式'
     )
-    parser.add_argument('url', help='B站视频URL (可选，不提供则只转录本地文件)')
+    parser.add_argument('url', help='B站视频URL或本地音频文件路径')
     parser.add_argument('-o', '--output', default='transcript.txt', help='输出文件路径')
     parser.add_argument('-m', '--model', default='base', 
                        choices=['tiny', 'base', 'small', 'medium', 'large'],
                        help='本地 Whisper 模型大小 (默认: base)')
     parser.add_argument('--api', action='store_true', help='使用 OpenAI Whisper API')
     parser.add_argument('--api-key', help='OpenAI API Key (或设置 OPENAI_API_KEY 环境变量)')
-    parser.add_argument('--local', action='store_true', help='使用本地 Whisper (默认)')
+    parser.add_argument('--local', action='store_true', help='使用本地 Whisper')
     parser.add_argument('--download-dir', default='./downloads', help='下载目录')
     
     args = parser.parse_args()
@@ -157,20 +158,25 @@ def main():
     
     if args.api:
         result = transcribe_with_whisper_api(
-            audio_path, 
+            audio_path,
             api_key=args.api_key
         )
     else:
         result = transcribe_with_local_whisper(
-            audio_path, 
+            audio_path,
             model=args.model
         )
-    
+
+    if result is None:
+        print("❌ 转录失败")
+        sys.exit(1)
+
     output_file = generate_transcript_with_timestamps(result, args.output)
-    
+
     print("\n" + "="*50)
     print(f"🎉 转录完成！")
     print(f"📄 转录稿: {output_file}")
+    print("💡 提示: 推荐使用豆包转录（https://www.doubao.com/chat/）获得更高准确率")
     print("="*50)
 
 

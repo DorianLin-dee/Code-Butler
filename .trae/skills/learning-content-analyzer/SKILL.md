@@ -28,13 +28,83 @@ description: "分析书籍、播客、视频等学习内容，生成中文思维
 
 ## 🚀 快速开始
 
-### 1. 安装基础依赖（只需一次）
+### 完整工作流（推荐）
+
+```
+用户给链接 → 下载音频 + 标题简化命名 + 网络版文稿 → 用户用豆包转录
+                                                            ↓
+生成 HTML ← 处理转录稿（格式化 + 说话者 + 词语校正）
+```
+
+**使用方式：把视频/播客链接或音频文件直接发给我，我会引导完成。**
+
+---
+
+#### 手动命令版
+
+**步骤 1：下载并准备（含网络版文稿）**
+```bash
+python3 .trae/skills/learning-content-analyzer/learning_pipeline.py "视频URL或音频文件"
+```
+自动完成：
+- 下载音频（B站/YouTube/本地文件）
+- **用原链接标题简化命名**（去掉特殊字符，截取前40字）
+- **输出一版基于网络搜索的文稿**（搜索网上现成文稿，找不到则用简介）
+- 识别说话者姓名
+- 提示用户打开豆包网页版转录
+
+**步骤 2：处理豆包转录稿 + 生成 HTML**
+```bash
+python3 .trae/skills/learning-content-analyzer/learning_pipeline.py \
+  --process 豆包转录稿.txt \
+  --speakers "张津剑,秦深涛"
+```
+自动完成：
+- 解析豆包格式（`Speaker X HH:MM:SS.mmm`）
+- 合并同一说话者的连续发言
+- 词语校正（1200+ 条术语字典）
+- 口语化表达清理
+- 生成 HTML 阅读页 + 思维导图 + 核心观点
+
+---
+
+### 豆包转录处理工具
+
+[process_doubao_transcript.py](file:///process_doubao_transcript.py) — 只处理豆包转录稿，不生成 HTML
+
+```bash
+# 基础用法
+python3 .trae/skills/learning-content-analyzer/process_doubao_transcript.py 豆包转录稿.txt
+
+# 手动指定说话者
+python3 .trae/skills/learning-content-analyzer/process_doubao_transcript.py 转录稿.txt \
+  --speakers "张津剑,秦深涛"
+
+# 自定义术语字典（JSON 格式：{错误: 正确}）
+python3 .trae/skills/learning-content-analyzer/process_doubao_transcript.py 转录稿.txt \
+  --term-file custom_terms.json
+
+# 常用参数
+--output FILE       指定输出文件
+--no-merge          不合并同一说话者的连续发言
+--no-correct        不进行词语校正
+--no-clean          不清理口语化表达
+--max-gap SECONDS   合并最大间隔秒数（默认 60）
+```
+
+---
+
+### 方式二：本地 Whisper 转录（备选，无需网络）
+
+适合离线场景或豆包无法处理的音频。
+
+#### 安装基础依赖（只需一次）
 ```bash
 brew install ffmpeg
 pip3 install yt-dlp openai-whisper requests beautifulsoup4
 ```
 
-### 2. 安装音色识别依赖（推荐，用于精准区分说话者）
+#### 安装音色识别依赖（推荐，用于精准区分说话者）
 
 转录默认会尝试音色识别（pyannote.audio）来区分不同说话者。未安装时会自动回退到基于沉默间隔的简单分组（不精准）。
 
@@ -85,9 +155,8 @@ python3 -c "from pyannote.audio import Pipeline; print('✅ pyannote.audio 安�
 - 模型首次运行会自动下载（约 1GB），之后缓存在 `~/.cache/huggingface/`
 - **Python 版本**：pyannote.audio 3.x 要求 Python 3.10+，低于此版本安装会失败
 
-### 3. 使用方式（两种方式）
+#### 使用方式
 
-#### 方式一：直接告诉我链接（推荐）
 直接把视频/播客链接发给我，我会：
 1. 用 yt-dlp 获取标题和简介（shownotes），**判断受访者姓氏**用于文件命名
 2. **自动识别说话者**：从 shownotes 中提取主持人/嘉宾姓名（如"嘉宾：张三、李四"），自动映射到 SPEAKER_00/01
@@ -439,12 +508,13 @@ python3.11 .trae/skills/learning-content-analyzer/dialogue_extractor.py \
 
 ## 📂 相关工具
 
-- **quick_transcribe.py** - ⭐ 推荐！快速转录工具（在当前工作目录保存结果）
-- **content_searcher.py** - 智能文稿搜索工具（先搜索网络文稿）
-- **local_whisper_transcriber.py** - 本地 Whisper 转录工具（免费）
-- **local_whisper_transcriber_v2.py** - ✨ 全新 V2.0！功能增强版转录工具（推荐）
-- **transcript_corrector.py** - 🔧 转录稿自动校正工具（字典+专有名词，秒级，含 `--reformat` 重格式化）
+- **learning_pipeline.py** - ⭐ 完整 Pipeline（下载→命名→指引豆包转录→处理→生成HTML）
+- **process_doubao_transcript.py** - 豆包转录稿处理工具（格式化 + 说话者 + 词语校正）
 - **dialogue_extractor.py** - 📊 对话内容提炼工具（观点提取 + 思维导图 + HTML）
+- **content_searcher.py** - 智能文稿搜索工具（先搜索网络文稿）
+- **transcript_corrector.py** - 转录稿自动校正工具（1200+ 术语字典，含 `--reformat` 重格式化）
+- **quick_transcribe.py** - 快速本地转录工具（备选方案）
+- **local_whisper_transcriber_v2.py** - 本地 Whisper 转录工具（离线备选）
 
 ### transcript_corrector.py 重格式化功能（`--reformat`）
 
