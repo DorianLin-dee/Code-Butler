@@ -87,6 +87,24 @@ python3 .trae/skills/learning-content-analyzer/learning_pipeline.py \
 
 ---
 
+### 两层 HTML 输出体系
+
+| 层级 | 工具 | 特点 | 适用场景 |
+|------|------|------|---------|
+| **L1 快速预览版** | `dialogue_extractor.py` | 基于规则的启发式提炼，秒级生成，自动分类原文段落 | 快速浏览、初步了解结构 |
+| **L2 AI 深度分析版** | `ai_html_generator.py` + AI | AI 深度提炼，技术概念解析，思维导图经过总结，有原文依据标注 | 深度研究、技术学习、高质量输出 |
+
+**L2 AI 深度分析版包含：**
+- ✅ **AI 提炼思维导图**（不是原文截取，是经过理解总结的节点）
+- ✅ **核心洞察**（最有价值的 3-5 个深度观点）
+- ✅ **技术概念深度解析**（MUAP、Neural Mismatch、Golden Label 等，含解释、重要性、关联）
+- ✅ **主题模块深度分析**（每个观点有 AI 解读 + 原文依据标注）
+- ✅ **金句精选**（AI 挑选+点评）
+
+**使用方式：** 用户提出「深度分析」「生成高质量 HTML」等需求时，由 AI 模型（豆包）进行深度分析，生成结构化数据，再用 `ai_html_generator.py` 渲染为 HTML。
+
+---
+
 ### 豆包转录处理工具
 
 [process_doubao_transcript.py](file:///process_doubao_transcript.py) — 只处理豆包转录稿，不生成 HTML
@@ -529,7 +547,8 @@ python3.11 .trae/skills/learning-content-analyzer/dialogue_extractor.py \
 
 - **learning_pipeline.py** - ⭐ 完整 Pipeline（下载→命名→指引豆包转录→处理→生成HTML）
 - **process_doubao_transcript.py** - 豆包转录稿处理工具（格式化 + 说话者 + 词语校正）
-- **dialogue_extractor.py** - 📊 对话内容提炼工具（观点提取 + 思维导图 + HTML）
+- **dialogue_extractor.py** - 📊 对话内容提炼工具（观点提取 + 思维导图 + HTML，L1 快速预览版）
+- **ai_html_generator.py** - 🎨 AI 深度分析 HTML 生成器（L2 高质量版，AI 提炼 + 技术解析）
 - **content_searcher.py** - 智能文稿搜索工具（先搜索网络文稿）
 - **transcript_corrector.py** - 转录稿自动校正工具（1200+ 术语字典，含 `--reformat` 重格式化）
 - **quick_transcribe.py** - 快速本地转录工具（备选方案）
