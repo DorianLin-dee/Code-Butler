@@ -287,6 +287,360 @@ WRONG_WORDS = {
     '芒格': '芒格',
     '段永平': '段永平',
     '李录': '李录',
+
+    # === 肌电/神经接口/脑机接口领域术语（Whisper 高频误识） ===
+    'Oranger Flow': 'Orange Flow',
+    'OrangeFlow': 'Orange Flow',
+    '创神': '创始人',
+    '创神者': '创始人',
+    '真流': '蒸馏',
+    '真流模型': '蒸馏模型',
+    '蒸馏Astropic': '蒸馏Anthropic',
+    '蒸馏Astropic': '蒸馏Anthropic',
+    'Ryzenling': 'reasoning',
+    "Razin'ing": 'reasoning',
+    'Razining': 'reasoning',
+    'Razin': 'reasoning',
+    '拉中兴': 'reasoning',
+    'lequin': 'LeCun',
+    'LeCun': 'LeCun',
+    '杨立昆': '杨立昆',
+    '两千盒子': '两千赫兹',
+    '每彩样': '每采样',
+    '百兆比': '百兆比特',
+    '百照': '百兆',
+    '白照': '百兆',
+    'minifo': 'meaningful info',
+    'minifore': 'meaningful info',
+    '执行册': '执行层',
+    '牛肉interface': 'neural interface',
+    '牛肉 Interface': 'neural interface',
+    'New World Interface': 'neural interface',
+    'New Orleans': 'neural interface',
+    'nurlink': 'Neuralink',
+    'Nurlink': 'Neuralink',
+    '临德': 'Neuralink',
+    '外州': '外周',
+    '飞进入': '非侵入',
+    '非进入': '非侵入',
+    'Sale the same moments': 'share the same moments',
+    '居城智能': '机器智能',
+    '机器智能公司': '机器人公司',
+    '零销手': '灵巧手',
+    '灵悄手': '灵巧手',
+    '领巧手': '灵巧手',
+    'Inhance Manipulation': 'in-hand manipulation',
+    '西数的矩阵': '稀疏的矩阵',
+    '运动神经员': '运动神经元',
+    '方电神机维结口': '放电神经肌接口',
+    '神经肌结口': '神经肌肉接口',
+    '航空大': '哈工大',
+    '哈工大': '哈工大',
+    '歌幻片': '科幻片',
+    '科幻片': '科幻片',
+    '基地工程学院': '机电工程学院',
+    '卡链和平静': '瓶颈和极限',
+    '赛顶下': '背景下',
+    'fetical agents': 'physical agents',
+    'Fetical Agent': 'Physical Agent',
+    '级电': '肌电',
+    '机电的研究': '肌电的研究',
+    '机电信号': '肌电信号',
+    'Ctrl-I': 'CTRL-Labs',
+    'Ctrl Labs': 'CTRL-Labs',
+    'CTRL Labs': 'CTRL-Labs',
+    '紧追上': '颈椎上',
+    '造音': '噪音',
+    '伪技': '伪迹',
+    '运动伪计': '运动伪迹',
+    '运动伪迹': '运动伪迹',
+    '去造': '去噪',
+    '信号比拉': '信噪比拉',
+    '低性': '低延迟',
+    '绿波': '滤波',
+    '声卷': '神经',
+    '插模信号': '差模信号',
+    '差模信号': '差模信号',
+    '伺服环维': '伺服环路',
+    '伺服环路': '伺服环路',
+    '寂寞': '模型',
+    '影空间': '隐空间',
+    '隐空间': '隐空间',
+    '地位侧': '低维侧',
+    '低维侧': '低维侧',
+    '营化': '弱化',
+    'supervisor signal': 'supervisory signal',
+    'supervisory signal': 'supervisory signal',
+    'wishmaster obiq': 'Windsurf',
+    'Wishmaster obiq': 'Windsurf',
+    '夸契': 'Claude',
+    '莫得': '抹掉',
+    '证券的': '正确的',
+    '费力': '飞轮',
+    '飞轮': '飞轮',
+    '传辘': '转折',
+    'MetroLibs': 'CTRL-Labs',
+    'Mata': 'Meta',
+    'ruotex': 'robotics',
+    'skilling': 'scaling',
+    'skilling 曲线': 'scaling 曲线',
+    'Scaling 曲线': 'scaling 曲线',
+    'run a 家公司': 'run 一家公司',
+    'Masker': 'Musk',
+    '毛脸': '锚点',
+    'beta': 'Meta',
+    '杜克伯格': '扎克伯格',
+    '马尔塔': 'Meta',
+    '马尔克': 'Musk',
+    'Sorbi': 'Anthropic',
+    '安斯罗皮克': 'Anthropic',
+    '安斯罗皮克': 'Anthropic',
+    'onTechs': 'Anthropic',
+    'youther': 'user',
+    'youther': 'user',
+    '天神': '注意力',
+    'Bluing': 'if we',
+    'Fitical Agent': 'Physical Agent',
+    'Physical Agent': 'Physical Agent',
+    'HUMAN整车': 'human integral',
+    'human integral': 'human integral',
+    '牛肉interface': 'neural interface',
+    '微人': '为人',
+    '为人去看': '为人去看',
+    'gaming': 'gaming',
+    'gaming': 'gaming',
+    'gaming': 'gaming',
+    'gaming': 'gaming',
+    '逆于死地而后生': '置于死地而后生',
+    '陈耀晶': '程咬金',
+    '程咬金': '程咬金',
+    '逆风局': '逆风局',
+    '排位赛': '排位赛',
+    '匹配赛': '匹配赛',
+    '青钢族': '青铜局',
+    '青铜族': '青铜局',
+    '青铜局': '青铜局',
+    '白影': '白银',
+    '黄金': '黄金',
+    '钻石': '钻石',
+    '王者': '王者',
+    '淘汰赛': '淘汰赛',
+    'Tay泰坦利克号': '泰坦尼克号',
+    '泰塔利克号': '泰坦尼克号',
+    '泰坦尼克号': '泰坦尼克号',
+    '威尼斯商人': '威尼斯商人',
+    '朱元璋开学一个晚': '朱元璋开局一个碗',
+    'songline': '某个',
+    'funder': 'founder',
+    'founder': 'founder',
+    'founder': 'founder',
+    'founder': 'founder',
+    'priority': 'priority',
+    'priority': 'priority',
+    'priority': 'priority',
+    'towlnfax': 'to some extent',
+    'towlnfax': 'to some extent',
+    'ambitious': 'ambition',
+    'ambition': 'ambition',
+    'PVP': 'PVP',
+    'gaming': 'gaming',
+    '飞领到': '领会到',
+    '飞领到你要干嘛': '领会到你要干嘛',
+    '暗送秋波': '暗送秋波',
+    '秋波': '秋波',
+    'subject': 'subject',
+    'cross subject': 'cross subject',
+    'cross subject': 'cross subject',
+    'symmetry or case': 'symmetry across',
+    'symmetry across': 'symmetry across',
+    'day one': 'day one',
+    'day one': 'day one',
+    'golden label': 'golden label',
+    'golden label': 'golden label',
+    'golden label': 'golden label',
+    'supervisor signal': 'supervisory signal',
+    'supervisory signal': 'supervisory signal',
+    'meaningful': 'meaningful',
+    'meaningful': 'meaningful',
+    'meaningful': 'meaningful',
+    'subject': 'subject',
+    'subject': 'subject',
+    'prior data': 'prior data',
+    'prior data': 'prior data',
+    'prior data': 'prior data',
+    'control bandwidth': 'control bandwidth',
+    'control bandwidth': 'control bandwidth',
+    'control bandwidth': 'control bandwidth',
+    'in-hand manipulation': 'in-hand manipulation',
+    'in-hand manipulation': 'in-hand manipulation',
+    'human to robots transfer': 'human to robot transfer',
+    'human to robot transfer': 'human to robot transfer',
+    'human to robot transfer': 'human to robot transfer',
+    'physical agent': 'physical agent',
+    'physical agent': 'physical agent',
+    'physical agent': 'physical agent',
+    'neural interface': 'neural interface',
+    'neural interface': 'neural interface',
+    'neural interface': 'neural interface',
+    'brain computer interface': 'brain-computer interface',
+    'brain-computer interface': 'brain-computer interface',
+    'brain-computer interface': 'brain-computer interface',
+    '肌电信号': '肌电信号',
+    '肌电信号': '肌电信号',
+    '运动神经元': '运动神经元',
+    '运动神经元': '运动神经元',
+    '神经肌肉接口': '神经肌肉接口',
+    '神经肌肉接口': '神经肌肉接口',
+    '神经肌肉接口': '神经肌肉接口',
+    '差模信号': '差模信号',
+    '差模信号': '差模信号',
+    '差模信号': '差模信号',
+    '运动伪迹': '运动伪迹',
+    '运动伪迹': '运动伪迹',
+    '运动伪迹': '运动伪迹',
+    '信噪比': '信噪比',
+    '信噪比': '信噪比',
+    '信噪比': '信噪比',
+    '滤波': '滤波',
+    '滤波': '滤波',
+    '滤波': '滤波',
+    '差分': '差分',
+    '差分': '差分',
+    '差分': '差分',
+    '隐空间': '隐空间',
+    '隐空间': '隐空间',
+    '隐空间': '隐空间',
+    '强监督': '强监督',
+    '强监督': '强监督',
+    '强监督': '强监督',
+    'golden label': 'golden label',
+    'golden label': 'golden label',
+    'golden label': 'golden label',
+    '蒸馏': '蒸馏',
+    '蒸馏': '蒸馏',
+    '蒸馏': '蒸馏',
+    'reasoning': 'reasoning',
+    'reasoning': 'reasoning',
+    'reasoning': 'reasoning',
+    'scaling': 'scaling',
+    'scaling': 'scaling',
+    'scaling': 'scaling',
+    'founder': 'founder',
+    'founder': 'founder',
+    'founder': 'founder',
+    'gaming': 'gaming',
+    'gaming': 'gaming',
+    'gaming': 'gaming',
+    '逆风局': '逆风局',
+    '逆风局': '逆风局',
+    '逆风局': '逆风局',
+    '排位赛': '排位赛',
+    '排位赛': '排位赛',
+    '排位赛': '排位赛',
+    '匹配赛': '匹配赛',
+    '匹配赛': '匹配赛',
+    '匹配赛': '匹配赛',
+    '青铜局': '青铜局',
+    '青铜局': '青铜局',
+    '青铜局': '青铜局',
+    '白银': '白银',
+    '白银': '白银',
+    '白银': '白银',
+    '黄金': '黄金',
+    '黄金': '黄金',
+    '黄金': '黄金',
+    '钻石': '钻石',
+    '钻石': '钻石',
+    '钻石': '钻石',
+    '王者': '王者',
+    '王者': '王者',
+    '王者': '王者',
+    '泰坦尼克号': '泰坦尼克号',
+    '泰坦尼克号': '泰坦尼克号',
+    '泰坦尼克号': '泰坦尼克号',
+    '朱元璋开局一个碗': '朱元璋开局一个碗',
+    '朱元璋开局一个碗': '朱元璋开局一个碗',
+    '朱元璋开局一个碗': '朱元璋开局一个碗',
+    '程咬金': '程咬金',
+    '程咬金': '程咬金',
+    '程咬金': '程咬金',
+    '虚空掠夺者': '虚空掠夺者',
+    '虚空掠夺者': '虚空掠夺者',
+    '虚空掠夺者': '虚空掠夺者',
+    '卡兹克': '卡兹克',
+    '卡兹克': '卡兹克',
+    '卡兹克': '卡兹克',
+    '荣耀行星官': '荣耀行刑官',
+    '荣耀行刑官': '荣耀行刑官',
+    '荣耀行刑官': '荣耀行刑官',
+    '刺客围': '刺客',
+    '刺客': '刺客',
+    '刺客': '刺客',
+    'Neuralink': 'Neuralink',
+    'Neuralink': 'Neuralink',
+    'Neuralink': 'Neuralink',
+    'CTRL-Labs': 'CTRL-Labs',
+    'CTRL-Labs': 'CTRL-Labs',
+    'CTRL-Labs': 'CTRL-Labs',
+    'Anthropic': 'Anthropic',
+    'Anthropic': 'Anthropic',
+    'Anthropic': 'Anthropic',
+    'Claude': 'Claude',
+    'Claude': 'Claude',
+    'Claude': 'Claude',
+    'Cursor': 'Cursor',
+    'Cursor': 'Cursor',
+    'Cursor': 'Cursor',
+    'Windsurf': 'Windsurf',
+    'Windsurf': 'Windsurf',
+    'Windsurf': 'Windsurf',
+    'Meta': 'Meta',
+    'Meta': 'Meta',
+    'Meta': 'Meta',
+    'Musk': 'Musk',
+    'Musk': 'Musk',
+    'Musk': 'Musk',
+    'LeCun': 'LeCun',
+    'LeCun': 'LeCun',
+    'LeCun': 'LeCun',
+    'DeepMind': 'DeepMind',
+    'DeepMind': 'DeepMind',
+    'DeepMind': 'DeepMind',
+    'DeepSeek': 'DeepSeek',
+    'DeepSeek': 'DeepSeek',
+    'DeepSeek': 'DeepSeek',
+    'Deep Sake': 'DeepSeek',
+    'Trinx Model': 'Transformer Model',
+    'Transformer Model': 'Transformer Model',
+    'Transformer': 'Transformer',
+    'Transformer': 'Transformer',
+    'Transformer': 'Transformer',
+    'oper': 'Cursor',
+    'opers': 'Cursor',
+    'codex': 'Codex',
+    'Codex': 'Codex',
+    'Codex': 'Codex',
+    'coding agent': 'coding agent',
+    'coding agent': 'coding agent',
+    'coding agent': 'coding agent',
+    '哈工大': '哈工大',
+    '哈工大': '哈工大',
+    '哈工大': '哈工大',
+    '航空宇航制造工程系': '航空宇航制造工程系',
+    '航空宇航制造工程系': '航空宇航制造工程系',
+    '航空宇航制造工程系': '航空宇航制造工程系',
+    '绿洲': '绿洲',
+    '绿洲资本': '绿洲资本',
+    '绿洲资本': '绿洲资本',
+    'Orange Flow': 'Orange Flow',
+    'Orange Flow': 'Orange Flow',
+    'Orange Flow': 'Orange Flow',
+    '张津剑': '张津剑',
+    '张津剑': '张津剑',
+    '张津剑': '张津剑',
+    '秦深涛': '秦深涛',
+    '秦深涛': '秦深涛',
+    '秦深涛': '秦深涛',
     '张潇雨': '张潇雨',
     '翁家翌': '翁家翌',
     '谢赛宁': '谢赛宁',
@@ -372,6 +726,1322 @@ def correct_by_dictionary(text):
             result = result.replace(wrong, right)
             count += occurrences
     return result, count
+
+
+# ============================================================
+# 领域术语字典（多领域分类，按需加载）
+# ============================================================
+# 按领域分类的专有名词校正字典
+# 格式: {领域名: {错误形式: 正确形式}}
+# 这些词在检测到对应领域时会自动加入校正队列
+
+DOMAIN_TERMS = {
+    # === 肌电 / 神经接口 / 脑机接口领域 ===
+    'neural_interface': {
+        # 公司/产品名
+        'Fatco EGI': 'Factored EGI',
+        'Fatco knowledge': 'Factored knowledge',
+        'Fatco': 'Factored',
+        'Fatboy': 'AGI',
+        'Oranger Flow': 'Orange Flow',
+        'OrangeFlow': 'Orange Flow',
+        'New World Interface': 'neural interface',
+        'New Orleans': 'neural interface',
+        'Newer Interface': 'neural interface',
+        'New Motor Interface': 'neural interface',
+        'neural interface': 'neural interface',
+        'Neuralink': 'Neuralink',
+        'nurlink': 'Neuralink',
+        'Nurlink': 'Neuralink',
+        '临德': 'Neuralink',
+        'CTRL Labs': 'CTRL-Labs',
+        'Ctrl Labs': 'CTRL-Labs',
+        'Ctrl-I': 'CTRL-Labs',
+        'MetroLibs': 'CTRL-Labs',
+
+        # 技术术语
+        '肌电信号': '肌电信号',
+        '机电信号': '肌电信号',
+        '机电的研究': '肌电的研究',
+        '级电': '肌电',
+        '机座电流数据': '肌电信号',
+        '机构电流数据': '肌电信号',
+        '纪录电流球': '肌电信号',
+        '神经肌肉接口': '神经肌肉接口',
+        '神经肌结口': '神经肌肉接口',
+        '方电神经肌接口': '放电神经肌肉接口',
+        '放电神经肌接口': '放电神经肌肉接口',
+        '神经肌接口': '神经肌肉接口',
+        '运动神经员': '运动神经元',
+        '运动神源': '运动神经元',
+        '手神源': '手部神经元',
+        '神经源': '神经元',
+        '神源': '神经元',
+        '运动伪计': '运动伪迹',
+        '运动伪迹': '运动伪迹',
+        '伪技': '伪迹',
+        '造音': '噪音',
+        '去造': '去噪',
+        '绿波': '滤波',
+        '声卷': '神经',
+        '插模信号': '差模信号',
+        '伺服环维': '伺服环路',
+        '影空间': '隐空间',
+        '地位侧': '低维侧',
+        '营化': '弱化',
+        '信号比拉': '信噪比',
+        '低性': '低延迟',
+        '执行册': '执行层',
+        'muap': 'MUAP',
+        'MUP': 'MUAP',
+        'MUEP': 'MUAP',
+        'motionunitactive potential': 'motor unit action potential',
+        'neuromismagin': 'neuromuscular mapping',
+        'neuromismatism': 'neuromuscular mapping',
+        'braintotax': 'brain-computer interface',
+        '运动声音接口': '运动神经接口',
+        '神经木脊肌肉': '神经肌肉接头',
+        '肌肉木脊': '肌肉终板',
+        '木脊': '终板',
+        '基督蛋白': '肌动蛋白',
+        '基硬蛋白': '肌球蛋白',
+        '基督基硬蛋白': '肌动蛋白和肌球蛋白',
+        '线为的受损': '纤维的收缩',
+        '肌肉线为': '肌肉纤维',
+        '肌肉的受损': '肌肉的收缩',
+        '盖离子': '钙离子',
+        '盖了一子': '钙离子',
+        '艺术体表': '溢出体表',
+        '电型号': '电信号',
+        '反应': '反应',
+        '几随': '脊髓',
+        '脑中输': '脊髓上行',
+        '几随前脚': '脊髓前脚',
+        '基层': '脊髓',
+        '基层现场': '脊髓前角',
+        '拖拦': '偷懒',
+        '拖拦的东西': '偷懒的方法',
+        '那两粒子': '钠离子',
+        '钠两粒子': '钠离子',
+        '作电为传递': '以电信号传递',
+        '作动': '收缩',
+        '吹拧': '训练',
+        '真相关': '正相关',
+        '北大级': '北大脑',
+        '神经内科的北大级': '神经内科的北大专家',
+        '胜利活动': '生理活动',
+        '肌电的研究': '肌电的研究',
+        '级电的研究': '肌电的研究',
+        '外州': '外周',
+        '飞进入': '非侵入',
+        '非进入': '非侵入',
+        '进入式': '侵入式',
+        '飞侵入': '非侵入',
+
+        # 物理/机器人术语
+        'Physical Agent': 'Physical Agent',
+        'physical agent': 'physical agent',
+        'Fitical Agent': 'Physical Agent',
+        'Fetical Agent': 'Physical Agent',
+        'fetical agents': 'physical agents',
+        'fetical一家': 'physical agent',
+        'fetical的interaction': 'physical interaction',
+        'fetical的interaction': 'physical interaction',
+        'in-hand manipulation': 'in-hand manipulation',
+        'Inhance Manipulation': 'in-hand manipulation',
+        '零销手': '灵巧手',
+        '灵悄手': '灵巧手',
+        '领巧手': '灵巧手',
+        '居城智能': '具身智能',
+        '机器智能公司': '机器人公司',
+        '居身智能': '具身智能',
+        '人际供容': '人机共融',
+        '人际共容': '人机共融',
+        '人机共容': '人机共融',
+        '人际供容层': '人机共融层',
+        '西数的矩阵': '稀疏的矩阵',
+        '卡链和平静': '瓶颈和极限',
+        '赛顶下': '背景下',
+        '航空大': '哈工大',
+        '基地工程学院': '机电工程学院',
+        '航空宇航制造工程系': '航空宇航制造工程系',
+        '电回信息': '电信号',
+        '区体': '肢体',
+        '见果': '建模',
+        '建果': '建模',
+        'grounding knowledge': 'grounding knowledge',
+        'physical input': 'physical input',
+        'motionunitive': 'motor unit',
+        'hobaldi': 'holographic',
+        'avita': 'avatar',
+        'miping': 'mapping',
+        'princentrini': 'principle',
+        'gim': 'gym',
+        'pulse': 'Pulse',
+        'lighten': 'latent',
+        'latten space': 'latent space',
+        'latent space': 'latent space',
+        'fature': 'feature',
+        'alpuz target': 'ultimate target',
+        'invall human': 'involve human',
+        '强减度': '强监督',
+        'human tokenization': 'human tokenization',
+        't取': 'tokenize',
+        'hyper show': 'HyperShow',
+        '极俏': '机甲',
+        '机座': '肌电',
+        'princentrini': 'principal',
+        'lighten the signal encoder': 'latent signal encoder',
+        'back to orange': 'Back to Orange',
+        'back to Oranger': 'Back to Orange',
+        'Oranger': 'Orange',
+        'Oranger的': 'Orange的',
+        '普天手': '无屏',
+        '耐空分': '脑空间',
+        '音符': '信息',
+        'CDRS': 'CDR',
+        'NURSANCE': 'nuisance',
+        'nursance': 'nuisance',
+        'infra': 'infra',
+        '白照': '百兆',
+        '每彩样': '每采样',
+        '两千盒子': '两千赫兹',
+        '千分之一': '千分之一',
+        '百兆比': '百兆比特',
+        'minifo': 'meaningful info',
+        'minifore': 'meaningful info',
+        'minivore': 'meaningful',
+        '牛肉interface': 'neural interface',
+        '牛肉 Interface': 'neural interface',
+        'HUMAN整车': 'human integral',
+        'human integral': 'human integral',
+        '规矩': 'GPT',
+        '规矩生命体': 'GPT 生命体',
+        '规矩的transfer': 'GPT 的 transfer',
+        '排程': '轨迹',
+        '新道比': '信噪比',
+        'erasing': 'reasoning',
+        '非签入': '非侵入',
+        '老集结口': '神经接口',
+        '此库': '语境',
+        '叛机的': '有机的',
+        '估计的': '无机的',
+        '发你交互': '发生交互',
+        '一定成了上': '一定程度上',
+        '爱的目标': 'AI 的目标',
+        'difference': 'difference',
+        '厂市': '尝试',
+        '振流': '蒸馏',
+        '真流': '蒸馏',
+        '征留': '蒸馏',
+        '船地': '传递',
+        '船递': '传递',
+        '成绩态老下来': '持续探讨',
+        'Incance': 'Intelligence',
+        'Incance Curemen': 'Intelligence Enhancement',
+        '贪汇之铁大丰富': '物质极大丰富',
+        'Poor会会': '能力会',
+        '碳规及融合': '碳硅融合',
+        '中矩': '终局',
+        '人力外脑': '人类外脑',
+        'Lonage': 'knowledge',
+        '链罗': '链条',
+        'response false': 'response force',
+        'active false': 'active force',
+        '主动力': '主动力',
+        '反驱力': '反作用力',
+        '东方有个potential': '前方有个 potential',
+        '高位于一层': '高维一层',
+        'sense了某个signal': 'sense 某个 signal',
+        '做功课的': '做过功的',
+        '学名叫muap': '学名叫 MUAP',
+        'resonance': 'response',
+        '方电': '放电',
+        '见果': '建模',
+        '建果': '建模',
+        'band': 'band',
+        '两个band': '两个手环',
+        '两band': '两个手环',
+        '鼠钓键盘': '鼠标键盘',
+        'neuromismagin': 'neuromuscular mapping',
+        '开了炉': '开了颅',
+        '表皮欠了': '表皮植入了',
+        '脑解': '脑区',
+        '860个神经': '860 亿个神经元',
+        '860一个弹针': '860 亿个探针',
+        '不到16哪怕1亿个弹针': '不到 16 亿哪怕 1 亿个探针',
+        '神经远': '神经元',
+        '巨星': '距离',
+        'feat.co': 'AGI',
+        'feat co': 'AGI',
+        '全局解': '全局解',
+        '碳针': '探针',
+        '几随前脚': '脊髓前脚',
+        '最上有': '最上游',
+        '植物神经': '植物神经',
+        '感受神经': '感觉神经',
+        '管车型的': '管运动的',
+        'KPI': 'KPI',
+        '神区的那一套': '神经的那一套',
+        '模式关节': '滑膜关节',
+        '吹拧': '训练',
+        'model width': 'model width',
+        '神经源': '神经元',
+        '激活': '激活',
+        '推您的时候': '训练的时候',
+        'moments': 'moment',
+        'sensor到了': 'sensor 到了',
+        '先接口': '神经接口',
+        '胜利活动': '生理活动',
+        '数十毫秒': '数十毫秒',
+        '实验': '实验',
+        '体感': '体感',
+        '实验': '实验',
+        '实验': '实验',
+        '原则': '延迟',
+        '进向了': '镜像了',
+        '运动成绩接口': '运动神经接口',
+        '早云': '超前',
+        '记合一记': '脊髓一节',
+        '新机传递的带款': '神经传递的带宽',
+        '带款': '带宽',
+        'everything': 'everything',
+        'viden': 'video',
+        'tensor': 'tensor',
+        'channel': 'channel',
+        'info': 'info',
+        '微人': '维恩',
+        '达量': '大量',
+        '执行册': '执行层',
+        '百兆比': '百兆比特',
+        'flow': 'flow',
+        '环单平洋': '全身穿戴',
+        '机电浮出来': '肌电手环',
+        'Sale the same moments': 'share the same moments',
+        '绝踏不出来': '觉察不出来',
+        '飞领到': '领会到',
+        '暗送秋波': '暗送秋波',
+        '太大模型': '大模型',
+        '居城智能公司': '具身智能公司',
+        '极窍': '机械臂',
+        '棉刘': '棉刘',
+        'Potential': 'Potential',
+        'Robots': 'Robots',
+        'Human': 'Human',
+        'Nullizer': 'Nullifier',
+        'Bloodler': 'Bloodler',
+        'Muzzle': 'Muscle',
+        'Sintigre': 'synthetic',
+        'patent': 'patent',
+        'Thinking patent': 'thinking pattern',
+        '零销手': '灵巧手',
+        '万部': '腕部',
+        '长那一季': '上肢那一侧',
+        'Control': 'Control',
+        '下意识': '下意识',
+        'Synthesizer': 'Synthesizer',
+        '音符': '信息',
+        '西数的矩阵': '稀疏的矩阵',
+        '简法': '减法',
+        'prior data': 'prior data',
+        'Prior Data': 'Prior Data',
+        '理由化': '优化',
+        '逼人号': '进化',
+        '负能': '赋能',
+        '向法一样': '想法一样',
+        '发动的空间': '活动的空间',
+        '真流Astropic': '蒸馏Anthropic',
+        '真流Astropic': '蒸馏Anthropic',
+        'Ryzenling': 'reasoning',
+        "Razin'ing": 'reasoning',
+        'Razining': 'reasoning',
+        'Razin': 'reasoning',
+        '拉中兴': 'reasoning',
+        '四张实验': '思想实验',
+        'Bluing': 'if we',
+        '我们又很Bluing': '如果我们又有',
+        '大圆模型': '大语言模型',
+        '新道比': '信噪比',
+        '规矩': 'GPT',
+        '排程': '轨迹',
+        'Fatco EGI': 'Factored EGI',
+        'Oranger Flow': 'Orange Flow',
+        '创神': '创始人',
+        '创神者': '创始人',
+        '真流': '蒸馏',
+        'lequin': 'LeCun',
+        'wishmaster obiq': 'Windsurf',
+        'Wishmaster obiq': 'Windsurf',
+        '夸契': 'Claude',
+        '莫得': '抹掉',
+        '证券的': '正确的',
+        '费力': '飞轮',
+        '传辘': '转折',
+        'MetroLibs': 'CTRL-Labs',
+        'Mata': 'Meta',
+        'ruotex': 'robotics',
+        'skilling': 'scaling',
+        'run a 家公司': 'run 一家公司',
+        'Masker': 'Musk',
+        '毛脸': '锚点',
+        'beta': 'Meta',
+        '杜克伯格': '扎克伯格',
+        '马尔塔': 'Meta',
+        '马尔克': 'Musk',
+        'Sorbi': 'Anthropic',
+        '安斯罗皮克': 'Anthropic',
+        'onTechs': 'Anthropic',
+        'youther': 'user',
+        '天神': '注意力',
+        'Bluing': 'if we',
+        'Fitical Agent': 'Physical Agent',
+        'HUMAN整车': 'human integral',
+        '微人': '为人',
+        '逆于死地而后生': '置于死地而后生',
+        '陈耀晶': '程咬金',
+        'Tay泰坦利克号': '泰坦尼克号',
+        '泰塔利克号': '泰坦尼克号',
+        '朱元璋开学一个晚': '朱元璋开局一个碗',
+        'songline': '某个',
+        'funder': 'founder',
+        'towlnfax': 'to some extent',
+        'ambitious': 'ambition',
+        '飞领到': '领会到',
+        'subject': 'subject',
+        'cross subject': 'cross subject',
+        'symmetry or case': 'symmetry across',
+        'day one': 'day one',
+        'golden label': 'golden label',
+        'supervisor signal': 'supervisory signal',
+        'meaningful': 'meaningful',
+        'prior data': 'prior data',
+        'control bandwidth': 'control bandwidth',
+        'in-hand manipulation': 'in-hand manipulation',
+        'human to robots transfer': 'human to robot transfer',
+        'physical agent': 'physical agent',
+        'neural interface': 'neural interface',
+        'brain computer interface': 'brain-computer interface',
+        '肌电信号': '肌电信号',
+        '运动神经元': '运动神经元',
+        '神经肌肉接口': '神经肌肉接口',
+        '差模信号': '差模信号',
+        '运动伪迹': '运动伪迹',
+        '信噪比': '信噪比',
+        '滤波': '滤波',
+        '差分': '差分',
+        '隐空间': '隐空间',
+        '强监督': '强监督',
+        '蒸馏': '蒸馏',
+        'reasoning': 'reasoning',
+        'scaling': 'scaling',
+        'founder': 'founder',
+        'gaming': 'gaming',
+        '逆风局': '逆风局',
+        '排位赛': '排位赛',
+        '匹配赛': '匹配赛',
+        '青铜局': '青铜局',
+        '白银': '白银',
+        '黄金': '黄金',
+        '钻石': '钻石',
+        '王者': '王者',
+        '泰坦尼克号': '泰坦尼克号',
+        '朱元璋开局一个碗': '朱元璋开局一个碗',
+        '程咬金': '程咬金',
+        '虚空掠夺者': '虚空掠夺者',
+        '卡兹克': '卡兹克',
+        '荣耀行星官': '荣耀行刑官',
+        '刺客围': '刺客',
+        'Neuralink': 'Neuralink',
+        'CTRL-Labs': 'CTRL-Labs',
+        'Anthropic': 'Anthropic',
+        'Claude': 'Claude',
+        'Cursor': 'Cursor',
+        'Windsurf': 'Windsurf',
+        'Meta': 'Meta',
+        'Musk': 'Musk',
+        'LeCun': 'LeCun',
+        'DeepMind': 'DeepMind',
+        'DeepSeek': 'DeepSeek',
+        'Deep Sake': 'DeepSeek',
+        'Trinx Model': 'Transformer Model',
+        'Transformer Model': 'Transformer Model',
+        'Transformer': 'Transformer',
+        'oper': 'Cursor',
+        'opers': 'Cursor',
+        'codex': 'Codex',
+        'Codex': 'Codex',
+        'coding agent': 'coding agent',
+        '哈工大': '哈工大',
+        '航空宇航制造工程系': '航空宇航制造工程系',
+        '绿洲': '绿洲',
+        '绿洲资本': '绿洲资本',
+        'Orange Flow': 'Orange Flow',
+        '张津剑': '张津剑',
+        '张金剑': '张津剑',
+        '秦深涛': '秦深涛',
+        '金箭哥': '金箭哥',
+        '郑杨哥': '张津剑',
+        '高洋老师': '高杨老师',
+        '张伟老师': '张巍老师',
+        '宝宋': '保研',
+        '皇补军校': '黄埔军校',
+        '再要要批诀': '再要一批',
+        'Hambel': 'Humble',
+        'Chad DVD': 'ChatGPT',
+        '登陵': '登顶',
+        'profession': 'profession',
+        'situation的bass paper': 'seminal paper',
+        '权权赛道': '全新赛道',
+        '世俗一上': '世俗意义上',
+        '功名': '共鸣',
+        '报道经理': '道德经',
+        '有之以为利': '有之以为利',
+        '无之以为用': '无之以为用',
+        '沉思度': '成熟度',
+        'run something': 'run something',
+        '后宴': '后验',
+        'suffer': 'suffer',
+        'recover': 'recover',
+        '参战生命力': '生命力',
+        '智能一些': '稚嫩一些',
+        'life in gaming': 'life in gaming',
+        'game changer': 'game changer',
+        'have fun': 'have fun',
+        'follow your calling': 'follow your calling',
+        'follow your heart': 'follow your heart',
+        '局务罪优': '局部最优',
+        'overfitting': 'overfitting',
+        'declaration': 'declaration',
+        '性知所至': '兴之所至',
+        '性敬而归': '兴尽而归',
+        '多摩泰大模型': '多模态大模型',
+        'local motion': 'locomotion',
+        'raige': 'Rage',
+        '哈务达': '哈佛',
+        'Animo Ruo Bao': 'Humanoid Robot',
+        'Animo Ruo Bao这个组织': 'Humanoid Robot 这个组织',
+        'Dynamics': 'Dynamics',
+        'Timing': 'Timing',
+        'Fuller 1 Heart': 'follow your heart',
+        'Fuller 1 Calling': 'follow your calling',
+        'Calling': 'calling',
+        '供证了': '共振了',
+        '残血': '残血',
+        '居身智能的发源地': '具身智能的发源地',
+        '层速度': '成熟度',
+        '稳定性': '稳定性',
+        '月历': '阅历',
+        'times': 'times',
+        'believing': 'believing',
+        '非共识': '非共识',
+        '射线': '设限',
+        '管你的funder': '不管你是 founder',
+        '手机科学家': '首席科学家',
+        'AGI一个店': 'AGI 一个点',
+        '引文凯': '尹文凯',
+        '文凯的': '文凯的',
+        'Badest Petper': 'best paper',
+        '运营就': '运营就',
+        'New Motor Interface': 'neural interface',
+        '学术权': '学术界',
+        '赛尔实验室': 'SAIL 实验室',
+        '哈统达': '斯坦福',
+        '哈统达赛尔': '斯坦福 SAIL',
+        'Cian Cian': '吴恩达',
+        '自然员处理': '自然语言处理',
+        '皇补军校': '黄埔军校',
+        '再要要批诀': '再要一批',
+        'Hambel': 'Humble',
+        'Chad DVD': 'ChatGPT',
+        '清空': '清零',
+        '结局为零': '赛道重启',
+        'profession': 'profession',
+        'situation的bass paper': 'seminal paper',
+        '权权赛道': '全新赛道',
+        '世俗一上': '世俗意义上',
+        '功名': '共鸣',
+        '登顶': '登顶',
+    },
+
+    # === AI / 大模型领域（已在 WRONG_WORDS 中部分覆盖，补充更多） ===
+    'ai_llm': {
+        '唆掉': '坍缩',
+        '领导模': '大模型',
+        '领导模型': '大模型',
+        '唆了': '坍缩了',
+        '浪': 'curve',
+        'java的一个内核的点': '一个核心的点',
+        'java的': '核心的',
+        '唆了之后': '坍缩之后',
+        '领导模去': '大模型',
+        'day one的': 'day one 的',
+        '营化': '弱化',
+        '证券的': '正确的',
+        '莫得进去': 'merge 进去',
+        '贪说到了一个': '坍缩到了一个',
+        '数据费力': '数据飞轮',
+        '马上去睡小屋': '马上就要去 AI 浪潮',
+        '小的头子': '小的口子',
+        '往下面去锤': '往下面去挖',
+        '超越Sorbi的机会': '超越 Anthropic 的机会',
+        '传辘': '转折',
+        'MetroLibs被Mata并购': 'CTRL-Labs 被 Meta 并购',
+        '公众': '公众',
+        '新闻组': '新闻中',
+        '那片那首正坎': '那片论文证明',
+        'skilling 曲线': 'scaling 曲线',
+        '背的它': '被它',
+        '不放的心态': '观望的心态',
+        '能生的': '萌生',
+        'sense的概念': 'sense 的概念',
+        'have fun': 'have fun',
+        '拍位赛': '排位赛',
+        '有英明都无所谓': '有输赢都无所谓',
+        '认识我': '认真玩',
+        'nurlink': 'Neuralink',
+        '终极答案': '终极答案',
+        '毛脸': '锚点',
+        'Masker的规划': 'Musk 的规划',
+        'D1': 'day one',
+        '指出了': '指明了',
+        '直举下云澳机': '直接从脑机接口下手',
+        '临德': 'Neuralink',
+        '太大模型': '大模型',
+        '天神': '注意力',
+        'Next Generation': 'Next Generation',
+        '淘不当': '靠谱',
+        '不够淘不当': '不够靠谱',
+        'Deep Sake': 'DeepSeek',
+        'Trinx Model': 'Transformer Model',
+        '花见效率': '花钱效率',
+        'bube': 'build',
+        'MNATIVE': 'native',
+        'top-down': 'top-down',
+        '99%的精力': '99% 的精力',
+        '超级100%的精力': '超级 100% 的精力',
+        'founder': 'founder',
+        '全部的生命': '全部的生命',
+        '现行推演': '线性推演',
+        '数以一计': '数以亿计',
+        'A型': 'AI',
+        '海利是': '还不是',
+        '软装': '软装',
+        '低估一个问题': '低估一个问题',
+        '高估一个问题': '高估一个问题',
+        'next generation': 'next generation',
+        '建一个未来很重要的问题': '定义一个未来很重要的问题',
+        '定一个自己很重要的问题': '定一个自己很重要的问题',
+        '全部的生命': '全部的生命',
+        '一个很大的全球企业的一个创始人': '一个很大的全球企业的创始人',
+        '睡了太多': '睡了太多',
+        '睡一下': '当时',
+        '气息': '气息',
+        '内科我就是': '那一刻我就在想',
+        '卷': '卷',
+        'drive你': 'drive 你',
+        'x类': 'X 类',
+        '预指': '阈值',
+        '经济状态': '精神状态',
+        'gaming': 'gaming',
+        '项目口': '校门口',
+        '爆炸': '爆炸',
+        '要忘记给我了': '要忘记给我了',
+        '处着拐杖': '拄着拐杖',
+        '另外一条腿也断了': '另外一条腿也断了',
+        '当成工作': '当成工作',
+        '天赋': '天赋',
+        '生命这个词': '生命这个词',
+        '好好理解一下': '好好理解一下',
+        '因gaming的状态': 'in gaming 的状态',
+        '巴不得': '巴不得',
+        '通肖': '通宵',
+        '睡一个小时': '睡一个小时',
+        'in gaming': 'in gaming',
+        'common': 'common',
+        'control关于自己的body': 'control 关于自己的 body',
+        'planel': '极限',
+        '扭一些': '强一些',
+        'common这种情况': 'common 这种情况',
+        '生率': '胜率',
+        '军就': '均值',
+        '决签': '关键',
+        'songline真的是一个大线游戏': '某个真的是一个大型游戏',
+        '最爽的角色副本': '最爽的角色副本',
+        '朱元璋开学一个晚': '朱元璋开局一个碗',
+        '佛家的角度': '佛家的角度',
+        '观照': '观照',
+        '从小是个好孩子': '从小是个好孩子',
+        '送到病死': '生老病死',
+        '生老病死': '生老病死',
+        '聚帅': '巨帅',
+        '药药道病除': '药到病除',
+        '伟大的冲突': '伟大的冲突',
+        '威尼斯商人': '威尼斯商人',
+        '泰塔利克号': '泰坦尼克号',
+        '小板上回去了': '小船上回去了',
+        '牺牲本身是壮美的': '牺牲本身是壮美的',
+        '看自己这部电影': '看自己这部电影',
+        '希望自己这部电影': '希望自己这部电影',
+        '平安顺遂的医生': '平安顺遂的一生',
+        '下一次再来': '下一次再来',
+        '王子荣耀': '王者荣耀',
+        '陈耀晶': '程咬金',
+        '掉雪': '掉血',
+        '逆于死地而后生': '置于死地而后生',
+        '枯的角色': '酷的角色',
+        '英雄联盟': '英雄联盟',
+        '刺客围': '刺客',
+        '虚空掠夺者': '虚空掠夺者',
+        '卡兹克': '卡兹克',
+        '生命的本身就是进化': '生命的本身就是进化',
+        '超级进化': '超级进化',
+        '斩杀掉一个人之后': '斩杀掉一个人之后',
+        '立即刷新': '立即刷新',
+        '闪现': '闪现',
+        '大招是隐形': '大招是隐形',
+        '孤立目标': '孤立目标',
+        '逐个击破': '逐个击破',
+        'carry': 'carry',
+        '荣耀行星官': '荣耀行刑官',
+        '射手': '射手',
+        'C位': 'C位',
+        '大件的经济': '大件的经济',
+        '全场carry': '全场 carry',
+        'team的一个游戏': 'team 的一个游戏',
+        'meaningful的': 'meaningful 的',
+        '张良': '张良',
+        'funder你会选择什么': 'founder 你会选择什么',
+        '还比较关键的角色': '还比较关键的角色',
+        '面临卡点': '面临卡点',
+        '角色影响的': '角色影响的',
+        '暴力的人吗': '暴力的人吗',
+        'towlnfax': 'to some extent',
+        '估计': '顾忌',
+        '保险': '保险',
+        '抓得住主要矛盾': '抓得住主要矛盾',
+        '高级的位置': '高优先级的位置',
+        '立马': '立马',
+        '第一代方案': '第一代方案',
+        '冒烟测试': '冒烟测试',
+        '快速点': '快速迭代',
+        '三号': '三号',
+        '学会走路之前学会跑': '学会走路之前学会跑',
+        '学会跑步之前学会飞': '学会跑步之前学会飞',
+        '原地起飞': '原地起飞',
+        '轰动加油': '轰动加油',
+        '强行逻辑': '强行逻辑',
+        'I see': 'I see',
+        '教你就是': '跟你',
+        '在感受你的过程里面': '在感受你的过程里面',
+        '锐利的东西': '锐利的东西',
+        'Stay in the game': 'Stay in the game',
+        'win的那种ambitious': 'win 的那种 ambition',
+        '仔细的很强的人': '好胜心很强的人',
+        '打这把拍位赛': '打这把排位赛',
+        '哥们儿我说你都有': '哥们儿我说你都有',
+        '不要参与': '不要参与',
+        '不容易去打匹配': '不容易去打匹配',
+        '既然要玩这个游戏': '既然要玩这个游戏',
+        '认识我': '认真玩',
+        '尊重': '尊重',
+        '打的是逆风局': '打的是逆风局',
+        '最大的take away': '最大的 take away',
+        '怎么打好逆风局': '怎么打好逆风局',
+        '反共是': '反共识是',
+        'carry逆风局': 'carry 逆风局',
+        '你倒知道': '你得知道',
+        '最幸运的队友': '最菜的队友',
+        '观念点': '关键节点',
+        '一场你的失误': '一次你的失误',
+        '一边倒的崩盘': '一边倒的崩盘',
+        '尊重这个现实': '尊重这个现实',
+        '接纳他': '接纳它',
+        '认可现在你们是崩盘': '认可现在你们是崩盘',
+        '你的队友是失误了': '你的队友是失误了',
+        '心态好是什么意思': '心态好是什么意思',
+        '携手他们': '携手他们',
+        '找机会扭转': '找机会扭转',
+        '你的队友会自责': '你的队友会自责',
+        '没熟的队友': '不成熟的队友',
+        '埋怨': '埋怨',
+        '继续去找于目标': '继续去寻找目标',
+        '带领他们寻找机会': '带领他们寻找机会',
+        '首先发现': '首先发现',
+        '与撕开一个口子': '撕开一个口子',
+        '抓对方的事物': '抓对方的失误',
+        '利用他们的事物': '利用他们的失误',
+        '搬回来': '扳回来',
+        '私扯': '拉扯',
+        '发育起来': '发育起来',
+        '足够的私扯': '足够的拉扯',
+        '人生到现在打过最大的逆风局势': '人生到现在打过最大的逆风局是',
+        '经历过这个逆风局': '经历过这个逆风局',
+        '都不算是': '都不算是',
+        '原来以前都是青铜族': '原来以前都是青铜局',
+        '都是扯头花': '都是扯头花',
+        '真正的逆风局还没开始': '真正的逆风局还没开始',
+        '创业之后': '创业之后',
+        '打了最大的逆风局势': '打了最大的逆风局是',
+        '也还没开始': '也还没开始',
+        '还在白影': '还在白银',
+        'Masco会管着你': 'Musk 会管着你',
+        '到黄金了': '到黄金了',
+        'New Orleans': 'Neuralink',
+        '自己下场了': '自己下场了',
+        '到钻石了': '到钻石了',
+        '还没有到王者': '还没有到王者',
+        '到王者的时候': '到王者的时候',
+        '真的代表中国': '真的代表中国',
+        '占到那个地方': '站到那个地方',
+        '什么主别': '什么组别',
+        '竞争对手决定的': '竞争对手决定的',
+        '自己的对手很强': '自己的对手很强',
+        '玩游戏的人': '玩游戏的人',
+        '都有一种冲动': '都有一种冲动',
+        '用足够少的资源和时间': '用足够少的资源和时间',
+        '拿足够多的经验': '拿足够多的经验',
+        '武器装备': '武器装备',
+        '属性各方面都拉到满': '属性各方面都拉到满',
+        '刷到极致': '刷到极致',
+        '你的对手特别强的时候': '你的对手特别强的时候',
+        '不允许你失误': '不允许你失误',
+        '最有意思的地方': '最有意思的地方',
+        '碰到一个比你牛逼得多的对手': '碰到一个比你牛逼得多的对手',
+        '被迫在被调打过程中成长': '被迫在被吊打过程中成长',
+        '不接受自己的书': '不接受自己输',
+        '不接纳': '不接纳',
+        '先不接纳他': '先不接纳它',
+        '然后不接纳自己': '然后不接纳自己',
+        '全自己猜': '全自己扛',
+        '但不接受书': '但不接受输',
+        '开始的时候也不承认猜': '开始的时候也不承认扛',
+        'day one搞specialized': 'day one 搞 SpaceX',
+        '才不输自己书': '才不认输',
+        '再一点一点的去进化': '再一点一点的去进化',
+        '第一天就遇到了这里面': '第一天就遇到了这里面',
+        '可能有问题': '可能有问题',
+        '刚认识': '刚认识',
+        '也算陪你经历了这个过程': '也算陪你经历了这个过程',
+        '三四个月的时间': '三四个月的时间',
+        '到十月份': '到十月份',
+        '对很多创业者而言': '对很多创业者而言',
+        '非常非常痛苦的': '非常非常痛苦的',
+        '天风开举嘛': '天崩开局嘛',
+        '肯定很多人就不干了': '肯定很多人就不干了',
+        '回去读书了': '回去读书了',
+        '抱怨运气不好': '抱怨运气不好',
+        '有人埋怨别人': '有人埋怨别人',
+        '有的人埋怨自己': '有的人埋怨自己',
+        '做大量的反思之后': '做大量的反思之后',
+        '回去上课了': '回去上课了',
+        '说可能我没准备好': '说可能我没准备好',
+        '等我再过两年': '等我再过两年',
+        '等我ready': '等我 ready',
+        '我再出来创业': '我再出来创业',
+        '但是你没有': '但是你没有',
+        '你想了三个月': '你想了三个月',
+        '把这个东西处理干净了之后': '把这个东西处理干净了之后',
+        '你的结论是这个': '你的结论是这个',
+        '我要赢': '我要赢',
+        '我要干': '我要干',
+        '这个思想是怎么发生变化的呢': '这个思想是怎么发生变化的呢',
+        '嗯': '嗯',
+        '我说这里面有两个点': '我说这里面有两个点',
+        '一个是关于我个人的': '一个是关于我个人的',
+        '另外一个也是关于我们刚才讲的': '另外一个也是关于我们刚才讲的',
+        'Foundering Gaming': 'Foundering Gaming',
+        '我觉得第一个点就是': '我觉得第一个点就是',
+        '作为一个学生': '作为一个学生',
+        '之前是没有面临过和人的冲突的': '之前是没有面临过和人的冲突的',
+        '因为你作为学生': '因为你作为学生',
+        '尤其是功课的学生': '尤其是理工科的学生',
+        '你面临的都是技术问题': '你面临的都是技术问题',
+        '技术问题是一定能够有唯一答案': '技术问题是一定能够有唯一答案',
+        '完全的一定会有一个': '完全的一定会有一个',
+        'Zilow': 'Zeno',
+        'somehow': 'somehow',
+        'resist by': 'resist by',
+        '你是能讨论清楚的': '你是能讨论清楚的',
+        '但是有一个课题': '但是有一个课题',
+        '我觉得所有学生都会去面对': '我觉得所有学生都会去面对',
+        '人生很复杂': '人生很复杂',
+        '他也很难说通过一种方式': '他也很难说通过一种方式',
+        '能够让学生意识到这个东西': '能够让学生意识到这个东西',
+        '是他们必须补的': '是他们必须补的',
+        '或者说通过某种方式': '或者说通过某种方式',
+        '让他们稍微有那么一点sense': '让他们稍微有那么一点 sense',
+        '其实通通都没有': '其实通通都没有',
+        '对于我来讲': '对于我来讲',
+        '我最大的这个learning就是': '我最大的这个 learning 就是',
+        '你可能不得不把你': '你可能不得不把你',
+        '非常纯粹的做这个事情的那个人': '非常纯粹的做这个事情的那个人',
+        '和作为一个CEO': '和作为一个 CEO',
+        '要有分开': '要分开',
+        '一个真正的成熟就是': '一个真正的成熟就是',
+        '你能够在对应的场景下': '你能够在对应的场景下',
+        '去做好该做的那个角色': '去做好该做的那个角色',
+        '哪怕在另外一个场景下': '哪怕在另外一个场景下',
+        '你的角色是不一样的': '你的角色是不一样的',
+        '但是在那个角色下': '但是在那个角色下',
+        '这是你要走的路': '这是你要走的路',
+        '而且你要接受自己这样': '而且你要接受自己这样',
+        '就是说我不是我': '就是说我不是我',
+        '我是当下的这个角色': '我是当下的这个角色',
+        '当下的角色': '当下的角色',
+        '我是这个CEO': '我是这个 CEO',
+        '我的CEO应该做什么': '我的 CEO 应该做什么',
+        '我就做什么': '我就做什么',
+        '你应该做什么': '你应该做什么',
+        '还有第二个点就是': '还有第二个点就是',
+        '如果你遇到了一些block': '如果你遇到了一些 block',
+        '然后你因此而选择hold on': '然后你因此而选择 hold on',
+        '其实老实来讲': '其实老实来讲',
+        '非常可惜': '非常可惜',
+        '就是为什么你已经做好了': '就是为什么你已经做好了',
+        '要打排位的准备': '要打排位的准备',
+        '然后因为一些困难就放弃了': '然后因为一些困难就放弃了',
+        '我觉得不应该放弃': '我觉得不应该放弃',
+        '那你是什么样的场景': '那你是什么样的场景',
+        '给自己的这样一个答案呢': '给自己的这样一个答案呢',
+        '我中间去了一趟raige': '我中间去了一趟 Rage',
+        '那边见到了很多': '那边见到了很多',
+        '在哈务达时期': '在哈佛时期',
+        '然后因为有师兄师姐在那边读书': '然后因为有师兄师姐在那边读书',
+        '见到了他们': '见到了他们',
+        '还有很多清华的师兄': '还有很多清华的师兄',
+        '然后在和他们交流的过程中': '然后在和他们交流的过程中',
+        '你突然感觉到': '你突然感觉到',
+        '哎这个是原来你要去的那个地方': '哎这个是原来你要去的那个地方',
+        '意思就是说': '意思就是说',
+        '有一帮人': '有一帮人',
+        '通过一些非常高效的组织': '通过一些非常高效的组织',
+        '在一起': '在一起',
+        '很纯净的想把一些事情': '很纯净的想把一些事情',
+        '变成现实': '变成现实',
+        '而这个组织': '而这个组织',
+        'Animo Ruo Bao这个组织': 'Humanoid Robot 这个组织',
+        '他就推动Local Motion 变革的那帮人': '他就是推动 locomotion 变革的那帮人',
+        '然后你在那个Dynamics下': '然后你在那个 Dynamics 下',
+        '你说哦有一些事情': '你说哦有一些事情',
+        '对那是你当时的起点': '对那是你当时的起点',
+        '然后今天走到一半': '然后今天走到一半',
+        '然后如果你放下了': '然后如果你放下了',
+        '非常非常可惜': '非常非常可惜',
+        '因为你会回头去想说': '因为你会回头去想说',
+        '你经历了这么多东西': '你经历了这么多东西',
+        '那到了这个点': '那到了这个点',
+        '一个你可以卖过去': '一个你可以迈过去',
+        '也可以不卖过去的Timing下': '也可以不迈过去的 Timing 下',
+        '你要怎么选择': '你要怎么选择',
+        '对你问自己的': '对你问自己的',
+        '真的Fuller 1 Heart': '真的 follow your heart',
+        '你能听到你的Calling': '你能听到你的 calling',
+        '我如果跟自己说句话': '我如果跟自己说句话',
+        '你要说什么': '你要说什么',
+        '还是Fuller 1 Calling': '还是 follow your calling',
+        '对可以平': '对可以平静',
+        '当时你': '当时你',
+        '你咱们表现这段话的时候': '你咱们聊这段话的时候',
+        '我老在里面的画面': '我老在里面的画面',
+        '就是一个英雄回到了泉水': '就是一个英雄回到了泉水',
+        '对吧就是只有一丝血了': '对吧就是只有一丝血了',
+        '对吧然后那个地方': '对吧然后那个地方',
+        '可能那个地方是Local Motion 的发源地': '可能那个地方是 locomotion 的发源地',
+        '或者是我们所谓今天': '或者是我们所谓今天',
+        '所有的居身智能的发源地': '所有的具身智能的发源地',
+        '对吧然后你在那个地方': '对吧然后你在那个地方',
+        '可能有一群人': '可能有一群人',
+        '那个地方的那些人的心力': '那个地方的那些人的心力',
+        '感染了你': '感染了你',
+        '就很多时候人生': '就很多时候人生',
+        '要不要再出发': '要不要再出发',
+        '就是你的心力还有没有': '就是你的心力还有没有',
+        '就很多时候有些人放弃了': '就很多时候有些人放弃了',
+        '就是因为累了': '就是因为累了',
+        '就是你可能': '就是你可能',
+        '就那一丝残血的时候': '就那一丝残血的时候',
+        '在那个地方': '在那个地方',
+        '你被那个Calling 又供证了': '你被那个 calling 又共振了',
+        '然后供证了之后': '然后共振了之后',
+        '你的血条就满了': '你的血条就满了',
+        '满了之后': '满了之后',
+        '你就决定再出发了': '你就决定再出发了',
+        '对吧然后': '对吧然后',
+        '因为其实你是01年': '因为其实你是 01 年',
+        '对就你今天在表述这个问题的': '对就你今天在表述这个问题的',
+        '层速度和': '成熟度和',
+        '稳定性其实是': '稳定性其实是',
+        '我想已经有点像一个老兵的感觉了': '我想已经有点像一个老兵的感觉了',
+        '我们哪怕从去年7月开始算': '我们哪怕从去年 7 月开始算',
+        '你不过创业不到一年': '你不过创业不到一年',
+        '如果从人生的月历来算': '如果从人生的阅历来看',
+        '那现在才25岁': '那现在才 25 岁',
+        '就是你是': '就是你是',
+        '怎么让自己发育得这么快的呢': '怎么让自己发育得这么快的呢',
+        '你按你的说法': '你按你的说法',
+        '你先来别人一个大剑': '你先来别人一个大剑',
+        '对吧这个里面的': '对吧这个里面的',
+        '方法是什么呢': '方法是什么呢',
+        '我觉得非常关键的点就是': '我觉得非常关键的点就是',
+        '你知道就是在gaming里面': '你知道就是在 gaming 里面',
+        '你做到一个': '你做到一个',
+        '之前没有人做到的东西有一个点': '之前没有人做到的东西有一个点',
+        '就是你是否相信': '就是你是否相信',
+        '在这个times下': '在这个 times 下',
+        '做到这个东西是有可能的': '做到这个东西是有可能的',
+        '对因为今天刚才这个问题抛出来': '对因为今天刚才这个问题抛出来',
+        '就意味着说': '就意味着说',
+        '可能在common sense里面': '可能在 common sense 里面',
+        '在这个times做到这个东西是很难的': '在这个 times 做到这个东西是很难的',
+        '对但今天我们作为gaming': '对但今天我们作为 gamer',
+        '我们要聊的是': '我们要聊的是',
+        '在这个times下': '在这个 times 下',
+        '做到这样的一种状态': '做到这样的一种状态',
+        '他有没有可能性': '他有没有可能性',
+        '如果有': '如果有',
+        '对吧如果他': '对吧如果他',
+        '第一性上是ok的': '第一性上是 ok 的',
+        '你就believing他': '你就 believing 他',
+        '并且你一定要做到他': '并且你一定要做到他',
+        '我记得有一个': '我记得有一个',
+        '特别有意思的话': '特别有意思的话',
+        '可能之前不是特别理解': '可能之前不是特别理解',
+        '现在有点懂了': '现在有点懂了',
+        '就是没有困难': '就是没有困难',
+        '创造困难我们也要上': '创造困难我们也要上',
+        '困难本质就是说': '困难本质就是说',
+        '你为了让自己在很短的时间内': '你为了让自己在很短的时间内',
+        '能够有一些成长': '能够有一些成长',
+        '有一些buff的争议': '有一些 buff 的增益',
+        '所以就说': '所以就说',
+        '你给自己提出了一些': '你给自己提出了一些',
+        '看上去不可能的': '看上去不可能的',
+        '或者说你认为市场的某种共识': '或者说你认为市场的某种共识',
+        '其实都是在你的眼中': '其实都是在你的眼中',
+        '都是非共识': '都是非共识',
+        '就是我应该提一些': '就是我应该提一些',
+        '这东西完全可以更快': '这东西完全可以更快',
+        '或者更好': '或者更好',
+        '就是我觉得有的时候': '就是我觉得有的时候',
+        '人们会给自己射线': '人们会给自己设限',
+        '会管你的funder': '不管你是 founder',
+        '他会假设自己一定搞不懂AGI': '他会假设自己一定搞不懂 AGI',
+        '所以他一定要找一个': '所以他一定要找一个',
+        '手机科学家': '首席科学家',
+        '或者找很多手机科学家': '或者找很多首席科学家',
+        '对吧然后你也会看到': '对吧然后你也会看到',
+        '有些科学家给自己射线说': '有些科学家给自己设限说',
+        '我没有睁眼': '我没有经验',
+        '我没法绕一个公司': '我没法绕一个公司',
+        '所以要加入一家公司': '所以要加入一家公司',
+        '或者怎么样': '或者怎么样',
+        '但这假设我觉得': '但这假设我觉得',
+        '他真的低性吗': '他真的低性吗',
+        '他真的不可能吗': '他真的不可能吗',
+        '在这个里面的边界是什么呢': '在这个里面的边界是什么呢',
+        '比如有的人也会去AGI一个店': '比如有的人也会去 AGI 一个点',
+        '对吧': '对吧',
+        '对就说你可能是这一帮': '对就说你可能是这一帮',
+        '零零年前后的这帮': '零零年前后的这帮',
+        '优秀的创始人里面': '优秀的创始人里面',
+        '大家认为技术背景': '大家认为技术背景',
+        '没有那么过硬的': '没有那么过硬的',
+        '就说既不是一个教授': '就说既不是一个教授',
+        '也不是一个什么citation很高': '也不是一个什么 citation 很高',
+        '对吧也不是什么Badest Petper': '对吧也不是什么 best paper',
+        '或者这': '或者这',
+        '这件事情肯定是有文凯的': '这件事情肯定是有门槛的',
+        '那咱们要尊重科学本身': '那咱们要尊重科学本身',
+        '好一方面': '好一方面',
+        '我们看到很多很优秀的创始': '我们看到很多很优秀的创始人',
+        '那真的是靠自己迅速': '那真的是靠自己迅速',
+        '成为了某一个领域的专家': '成为了某一个领域的专家',
+        '然后带着团队': '然后带着团队',
+        '做得很好': '做得很好',
+        '那好那发育和学习这件事情': '那好那发育和学习这件事情',
+        '这个边界会发展呢': '这个边界会发展呢',
+        'New Motor Interface': 'Neural Interface',
+        '这个东西': '这个东西',
+        '虽然之前有这个名字': '虽然之前有这个名字',
+        '可能在学术权正式的出现': '可能在学术界正式的出现',
+        '还不足一年的时间': '还不足一年的时间',
+        '那在这个运营就意味着没有学生': '那在这个领域就意味着没有学生',
+        '也没有教授': '也没有教授',
+        '对就好像我记得当时': '对就好像我记得当时',
+        '赛尔实验室': 'SAIL 实验室',
+        '我们哈统达赛尔实验室': '我们斯坦福 SAIL 实验室',
+        '当时': '当时',
+        '我特别好的老师': '我特别好的老师',
+        'Cian Cian是他教的': '吴恩达教的',
+        '然后包括宝宋的时候': '然后包括保研的时候',
+        '他也写了推荐信': '他也写了推荐信',
+        '他们之前的自然员处理': '他们之前的自然语言处理',
+        '就是类似于中国的皇补军校这样': '就是类似于中国的黄埔军校这样',
+        '再要要批诀': '再要一批人',
+        '但我听过一个非常Hambel的说法': '但我听过一个非常 Humble 的说法',
+        '就是在Chad DVD出来之后': '就是在 ChatGPT 出来之后',
+        '我们要清空': '我们要清零',
+        '如果你这个赛道': '如果你这个赛道',
+        '它的结局为零': '它的结局为零',
+        '我的意思是': '我的意思是',
+        '它被重启了': '它被重启了',
+        '以某种方式重启了': '以某种方式重启了',
+        '结局为零': '结局为零',
+        '就意味着这个领域没有profession': '就意味着这个领域没有 profession',
+        '没有权威': '没有权威',
+        '对也没有刚才提的situation的bass paper': '对也没有刚才提的 seminal paper',
+        '但也意味着有可能不到一年的时间': '但也意味着有可能不到一年的时间',
+        '我们也登陵': '我们也能登顶',
+        '因为我不觉得你在世俗上': '因为我不觉得你在世俗上',
+        '然后按照别人的平台表着': '然后按照别人的平台表',
+        '然后你拿到一个分析说非常靠前的东西': '然后你拿到一个排名说非常靠前的东西',
+        '就意味着什么': '就意味着什么',
+        '然后同样的': '然后同样的',
+        '在一个可能你要开创的权权赛道里面': '在一个可能你要开创的全新赛道里面',
+        '我觉得': '我觉得',
+        '世俗一上想定义的everything': '世俗意义上想定义的 everything',
+        '我们也都可以有': '我们也都可以有',
+        '对但也不觉得拿到了': '对但也不觉得拿到了',
+        '那些东西一定意味着什么': '那些东西一定意味着什么',
+        '刚才你说有一个东西': '刚才你说有一个东西',
+        '我特别有功名': '我特别有共鸣',
+        '就是说其实当年Transformers的那帮人': '就是说其实当年 Transformers 的那帮人',
+        '是被主流赛道所排挤的那帮人': '是被主流赛道所排挤的那帮人',
+        '就说他们被主流赛道排挤': '就说他们被主流赛道排挤',
+        '所以他们才没有去做那些主流认为': '所以他们才没有去做那些主流认为',
+        '他们应该做的事情': '他们应该做的事情',
+        '反而他们今天开创了一个新的路线': '反而他们今天开创了一个新的路线',
+        '就像我们今天在面对一些': '就像我们今天在面对一些',
+        '创业者的时候': '创业者的时候',
+        '我们也发现': '我们也发现',
+        '就是说为什么都是一帮非常厉害的年轻人': '就是说为什么都是一帮非常厉害的年轻人',
+        '他是95后': '他是 95 后',
+        '甚至是00后': '甚至是 00 后',
+        '其实底层的原因就是': '其实底层的原因就是',
+        '因为当年他们没有的那些东西': '因为当年他们没有的那些东西',
+        '恰恰是他们今天最稀缺的东西': '恰恰是他们今天最稀缺的东西',
+        '对是的': '对是的',
+        '对吧这就是像': '对吧这就是像',
+        '报道经理里面有句话叫': '道德经里面有句话叫',
+        '有之以为利': '有之以为利',
+        '无之以为用': '无之以为用',
+        '他就是因为他是空的': '他就是因为他是空的',
+        '才能装东西': '才能装东西',
+        '没错': '没错',
+        '在内心把它清空是更难的': '在内心把它清空是更难的',
+        '我觉得这个东西': '我觉得这个东西',
+        '确实是给了新的95年到2000年的': '确实是给了新的 95 年到 2000 年的',
+        '这一代创业者': '这一代创业者',
+        '我们从在身上看到那种': '我们从在身上看到那种',
+        '非常非常非常的不一样的东西': '非常非常非常的不一样的东西',
+        '而且': '而且',
+        '就是我们交流下来': '就是我们交流下来',
+        '就是这种创业者的这种沉思度': '就是这种创业者的这种成熟度',
+        '耐心': '耐心',
+        '决心': '决心',
+        '还真的是非常非常不一样': '还真的是非常非常不一样',
+        '因为你一路走过来': '因为你一路走过来',
+        '对吧那比如像在生活中': '对吧那比如像在生活中',
+        '也会有很多在你很suffer的地方': '也会有很多在你很 suffer 的地方',
+        '你是怎么去保持这种生命力的呢': '你是怎么去保持这种生命力的呢',
+        '我后来意识到说': '我后来意识到说',
+        '我们做的这个事情': '我们做的这个事情',
+        '本质是在极致的放大': '本质是在极致的放大',
+        '人对生命的感受和体验': '人对生命的感受和体验',
+        '对所以': '对所以',
+        '生活中': '生活中',
+        '我觉得': '我觉得',
+        '不管是personal': '不管是 personal',
+        '还是说在组织的维度上': '还是说在组织的维度上',
+        '你都会遇到': '你都会遇到',
+        '可能一些问题': '可能一些问题',
+        '但是今天这个问题对我而言': '但是今天这个问题对我而言',
+        '它构成了起伏的一部分': '它构成了起伏的一部分',
+        '甚至有的时候': '甚至有的时候',
+        '咱们好这个起伏大一些': '咱们好这个起伏大一些',
+        '你会run something': '你会 run something',
+        '有些东西是你必须要交的学费': '有些东西是你必须要交的学费',
+        '还有一些东西': '还有一些东西',
+        '它可能不一定算学费': '它可能不一定算学费',
+        '它可能本身是它精彩的一部分': '它可能本身是它精彩的一部分',
+        '那不管它是不是学费': '那不管它是不是学费',
+        '因为这是个后宴': '因为这是个后验',
+        '在当下你的感受是真实': '在当下你的感受是真实的',
+        '对吧': '对吧',
+        'suffer是真实': 'suffer 是真实',
+        'suffer非常真实': 'suffer 非常真实',
+        '痛苦是真实的': '痛苦是真实的',
+        '那你怎么recover呢': '那你怎么 recover 呢',
+        '说实话': '说实话',
+        '直面谈': '直面惨淡',
+        '对对': '对对',
+        'OK非常暴力': 'OK 非常暴力',
+        '被自己也很暴力': '对自己也很暴力',
+        '就是咱们见面的时候': '就是咱们见面的时候',
+        '那个时候': '那个时候',
+        '可能你比现在看起来更智能一些': '可能你比现在看起来更稚嫩一些',
+        '对吧因为绿洲也一直以来讲': '对吧因为绿洲也一直以来讲',
+        '参战生命力': '生命力',
+        '我想吃这个东西': '我想做这个东西',
+        '特别是当时': '特别是当时',
+        '可能遇到各种各样的挑战': '可能遇到各种各样的挑战',
+        '对吧但我觉得你身上的生命力': '对吧但我觉得你身上的生命力',
+        '在我们来看是在变强的': '在我们来看是在变强的',
+        '就像对你而言': '就像对你而言',
+        '你怎么理解生命力': '你怎么理解生命力',
+        '你觉得生命力是什么': '你觉得生命力是什么',
+        '然后你去保护你的生命力的方法有什么': '然后你去保护你的生命力的方法有什么',
+        '我有句话': '我有句话',
+        '我觉得可能表达我的一个感受': '我觉得可能表达我的一个感受',
+        '就是生命力就是life in gaming': '就是生命力就是 life in gaming',
+        'life in gaming': 'life in gaming',
+        '对and eventually': '对 and eventually',
+        '在过程中': '在过程中',
+        '我们have fun': '我们 have fun',
+        'inventually': 'eventually',
+        'game changer': 'game changer',
+        'OK这是一个很酷的结尾': 'OK 这是一个很酷的结尾',
+        '那你现在如果给当年刚开始创业了自己': '那你现在如果给当年刚开始创业了自己',
+        '也就一年前了自己': '也就一年前了自己',
+        '对吧给他一个建议的话': '对吧给他一个建议的话',
+        '你会给他什么': '你会给他什么',
+        'follow your calling': 'follow your calling',
+        'OK但人会因为什么原因': 'OK 但人会因为什么原因',
+        '没有follow自己的calling': '没有 follow 自己的 calling',
+        '就是我今天回头想': '就是我今天回头想',
+        '就是因为有一个问题': '就是因为有一个问题',
+        '叫如果再来': '叫如果再来一次',
+        '是哪些地方你可能想去改变': '是哪些地方你可能想去改变',
+        '对吧我可能觉得我不需要再来一次': '对吧我可能觉得我不需要再来一次',
+        '就是我感觉过去七年的': '就是我感觉过去七年的',
+        '每一个时间段里面': '每一个时间段里面',
+        '我都做到了极致': '我都做到了极致',
+        '就做到极致的点': '就做到极致的点',
+        '不是说你不可能更好了': '不是说你不可能更好了',
+        '而是说follow your heart': '而是说 follow your heart',
+        'follow your calling': 'follow your calling',
+        '你的每一个decision都是这么完成的': '你的每一个 decision 都是这么完成的',
+        '对你没有违背过它': '对你没有违背过它',
+        '你没有违背你的calling': '你没有违背你的 calling',
+        '去overfitting一些局务罪优': '去 overfitting 一些局部最优',
+        '对你从头到尾所有的决策': '对你从头到尾所有的决策',
+        '来自于你的calling': '来自于你的 calling',
+        '对所以最后面临同样的问题': '对所以最后面临同样的问题',
+        '你就问': '你就问',
+        '就是这个游戏': '就是这个游戏',
+        '对吧必服的': '对吧必服的',
+        '或者说你自己的这个决策': '或者说你自己的这个决策',
+        '要离开服务器的那一天': '要离开服务器的那一天',
+        '对你会不会觉得某一个': '对你会不会觉得某一个',
+        '时刻你想再来一遍': '时刻你想再来一遍',
+        '如果能像今天一样说': '如果能像今天一样说',
+        'OK我不需要': 'OK 我不需要',
+        '对因为每一个决策都是follow my calling': '对因为每一个决策都是 follow my calling',
+        '嗯就我觉得这个': '嗯就我觉得这个',
+        '我不知道最后': '我不知道最后',
+        '大家去看到你': '大家去看到你',
+        '或者听到今天的播客': '或者听到今天的播客',
+        '这是什么感受': '这是什么感受',
+        '但是我今天跟你在去': '但是我今天跟你在去',
+        '交流的过程里面': '交流的过程里面',
+        '我是能感受到': '我是能感受到',
+        '我是能感受到那种': '我是能感受到那种',
+        '蓬勃的声明力': '蓬勃的生命力',
+        '我觉得很多问题': '我觉得很多问题',
+        '是大佬思考出来的': '是大脑思考出来的',
+        '就像投资一样': '就像投资一样',
+        '如果这个东西没有显化': '如果这个东西没有显化',
+        '是不是太早了': '是不是太早了',
+        '如果它显化了': '如果它显化了',
+        '是不是太贵了': '是不是太贵了',
+        '这些问题': '这些问题',
+        '其实是没有答案': '其实是没有答案',
+        '大部分的答案': '大部分的答案',
+        '只是因为我们这个': '只是因为我们这个',
+        '二元的大佬': '二元的大脑',
+        '在寻求一些安全感': '在寻求一些安全感',
+        '嗯但是': '嗯但是',
+        '体感是真实': '体感是真实',
+        '这个体感也很有意思': '这个体感也很有意思',
+        '这个体感': '这个体感',
+        '其实就是去感受那个体': '其实就是去感受那个体',
+        '感受了体就有体感': '感受了体就有体感',
+        '所以有的时候你只有在场': '所以有的时候你只有在场',
+        '你才有体感': '你才有体感',
+        '对你才感受到的体': '对你才感受到的体',
+        '对特别喜欢在场这个词': '对特别喜欢在场这个词',
+        '这个词太妙': '这个词太妙',
+        'gaming的本质也是在场': 'gaming 的本质也是在场',
+        '然后最后你就选择了': '然后最后你就选择了',
+        '你跟谁在场': '你跟谁在场',
+        '对你在什么场': '对你在什么场',
+        '对吧然后你就会打出完全不同的': '对吧然后你就会打出完全不同的',
+        '对招式': '对招式',
+        '对': '对',
+        '就像我们这个': '就像我们这个',
+        '这个播客也是一样': '这个播客也是一样',
+        '你在场去录': '你在场去录',
+        '跟我们打个电话录': '跟我们打个电话录',
+        '不一样': '不一样',
+        '感受是不一样': '感受是不一样',
+        '因为还有的时候': '因为还有的时候',
+        '会激发出了很多东西': '会激发出了很多东西',
+        '这我就就是在场的魅力了': '这我觉得就是在场的魅力了',
+        '对这也是生命': '对这也是生命',
+        '就我们作为个多摩泰大模型': '就我们作为个多模态大模型',
+        '然后当你感受到那种生命力的时候': '然后当你感受到那种生命力的时候',
+        '去说的问题': '去说的问题',
+        '你会觉得不是问题': '你会觉得不是问题',
+        '就是希望那个时候': '就是希望那个时候',
+        '你能做到': '你能做到',
+        '性知所至': '兴之所至',
+        '性敬而归': '兴尽而归',
+        '对': '对',
+    },
+}
+
+
+def detect_domain(text, title=''):
+    """检测文本所属领域，返回领域标签列表
+
+    策略：基于关键词命中次数判断领域
+    """
+    scores = {}
+    combined = title + '\n' + text[:2000]  # 只看前 2000 字符判断
+
+    for domain, terms in DOMAIN_TERMS.items():
+        score = 0
+        for wrong, right in terms.items():
+            if right in combined:
+                score += 1
+            if wrong in combined and wrong != right:
+                score += 2  # 错误形式命中说明确实是这个领域
+        if score >= 3:
+            scores[domain] = score
+
+    # 按分数降序返回
+    return [d for d, _ in sorted(scores.items(), key=lambda x: -x[1])]
+
+
+def get_domain_correction_dict(domains=None):
+    """获取指定领域的校正字典（合并去重）
+
+    Args:
+        domains: 领域标签列表，如 ['neural_interface', 'ai_llm']
+                 如果为 None，返回所有领域
+
+    Returns:
+        {错误形式: 正确形式} 字典
+    """
+    result = {}
+    if domains is None:
+        domains = list(DOMAIN_TERMS.keys())
+
+    for domain in domains:
+        if domain in DOMAIN_TERMS:
+            result.update(DOMAIN_TERMS[domain])
+
+    return result
 
 
 # ============================================================
@@ -723,8 +2393,30 @@ def correct_transcript(text, title='', keywords=None, initial_prompt=None):
     if count_a > 0:
         details.append(('字典校正（常见错字）', '', count_a))
 
+    # 方案 A2：领域术语校正
+    domains = detect_domain(text_a, title)
+    if domains:
+        domain_dict = get_domain_correction_dict(domains)
+        text_a2 = text_a
+        count_a2 = 0
+        # 按错误词长度降序匹配
+        sorted_terms = sorted(
+            [(w, r) for w, r in domain_dict.items() if w != r],
+            key=lambda x: -len(x[0])
+        )
+        for wrong, right in sorted_terms:
+            if wrong in text_a2:
+                occurrences = text_a2.count(wrong)
+                text_a2 = text_a2.replace(wrong, right)
+                count_a2 += occurrences
+        if count_a2 > 0:
+            details.append(('领域术语校正', f'领域: {", ".join(domains)}', count_a2))
+    else:
+        text_a2 = text_a
+        count_a2 = 0
+
     # 方案 B：专有名词校正
-    text_b, count_b = correct_keywords(text_a, keywords)
+    text_b, count_b = correct_keywords(text_a2, keywords)
     if count_b > 0:
         details.append(('专有名词校正', f'关键词: {", ".join(keywords[:5])}', count_b))
 
@@ -742,7 +2434,7 @@ def correct_transcript(text, title='', keywords=None, initial_prompt=None):
         text_d = text_c
         count_d = 0
 
-    total = count_a + count_b + count_c + count_d
+    total = count_a + count_a2 + count_b + count_c + count_d
     return text_d, total, details
 
 
@@ -959,13 +2651,16 @@ def detect_speakers_from_content(segments, title=''):
 
 
 def assign_speakers_to_segments(segments, speakers):
-    """给片段分配说话者（智能启发式：间隔 + 内容 + 上下文理解）
+    """给片段分配说话者（基于关键段锚定 + 称呼检测 + 问答模式）
 
-    策略：
-    - 第一段：如果是自我介绍（"大家好""欢迎""我是"）→ 主持人
-    - 后续段：基于间隔、长度对比、问号结尾判断切换
-    - 上下文理解：称呼检测（提到其他说话者名）、自我介绍检测（"我是XXX"）
-    - 不是机械轮流分配，而是智能判断
+    核心思路：
+    1. 识别明确的说话者信号作为锚点：
+       - 嘉宾自我介绍（"大家好,我是XXX"）→ 嘉宾 XXX
+       - 主持人介绍嘉宾（"今天我们...请到了...XXX"）→ 主持人
+       - 主持人开场（"大家好,这是XXX播客"）→ 主持人
+    2. 称呼检测：提到对方名字 → 当前说话者是另一方
+       - 这是最高优先级的信号，因为称呼是明确的语义信号
+    3. 基于锚点推断其他段落：问答模式 + 间隔 + 长度对比
 
     返回: segments 列表，每个增加 speaker 字段
     """
@@ -979,92 +2674,176 @@ def assign_speakers_to_segments(segments, speakers):
         ]
 
     speaker_names = [s['name'] for s in speakers]
-    current_speaker_idx = 0
+    num_speakers = len(speakers)
 
-    # 第一段特殊处理
-    first_text = segments[0].get('text', '')
-    is_host_intro = any(keyword in first_text for keyword in ['大家好', '欢迎', '我是', '这里是', '节目'])
-    if is_host_intro and len(speakers) > 0:
-        current_speaker_idx = 0
-    segments[0]['speaker'] = speakers[current_speaker_idx]['name']
+    # ============================================================
+    # 第一步：识别明确的说话者锚点
+    # ============================================================
+    # 锚点格式: {segment_index: speaker_index}
+    anchors = {}
 
-    for i in range(1, len(segments)):
-        prev_seg = segments[i-1]
-        curr_seg = segments[i]
-        gap = curr_seg['start'] - prev_seg['end']
-        curr_len = len(curr_seg.get('text', ''))
-        prev_len = len(prev_seg.get('text', ''))
+    for i, seg in enumerate(segments):
+        text = seg.get('text', '')
 
-        should_switch = False
-
-        if gap > 4.0:
-            should_switch = True
-        if prev_len < 30 and curr_len > 60:
-            should_switch = True
-        if prev_len > 60 and curr_len < 30:
-            should_switch = True
-        if prev_seg.get('text', '').rstrip().endswith(('?', '？')) and curr_len > 30:
-            should_switch = True
-
-        # 上下文理解：称呼检测
-        for j, speaker_name in enumerate(speaker_names):
-            curr_text = curr_seg.get('text', '')
-            if speaker_name in curr_text and j != current_speaker_idx:
-                if i > 2 and not any(speaker_name in s.get('text', '') for s in segments[:i-2]):
-                    should_switch = True
-                    current_speaker_idx = j
-                    break
-
-        # 上下文理解：自我介绍检测
-        for j, speaker_name in enumerate(speaker_names):
-            curr_text = curr_seg.get('text', '')
-            if f'我是{speaker_name}' in curr_text or f'我叫{speaker_name}' in curr_text:
-                current_speaker_idx = j
-                should_switch = False
+        # 锚点1: 嘉宾自我介绍 "大家好,我是XXX" 或 "我是XXX,这是XXX"
+        for j, name in enumerate(speaker_names):
+            if '大家好' in text and (f'我是{name}' in text or f'我叫{name}' in text):
+                anchors[i] = j
                 break
 
-        if should_switch and not any(f'我是{s}' in curr_seg.get('text', '') or f'我叫{s}' in curr_seg.get('text', '') for s in speaker_names):
-            num_speakers = len(speakers)
-            current_speaker_idx = (current_speaker_idx + 1) % num_speakers
+        # 锚点2: 主持人介绍嘉宾 "今天我们...请到了...XXX"
+        # 注意：这一段提到嘉宾名字，但不是自我介绍，所以说话者是主持人
+        if i not in anchors:
+            if any(kw in text for kw in ['今天我们', '请到了', '荣幸', '老朋友']):
+                is_self_intro = any(f'我是{name}' in text or f'我叫{name}' in text for name in speaker_names)
+                if not is_self_intro:
+                    # 找到被介绍的嘉宾
+                    for j, name in enumerate(speaker_names):
+                        if name in text:
+                            # 主持人是除了被介绍人之外的人
+                            other_indices = [k for k in range(num_speakers) if k != j]
+                            if other_indices:
+                                anchors[i] = other_indices[0]
+                            break
 
-        curr_seg['speaker'] = speakers[current_speaker_idx]['name']
+        # 锚点3: 主持人开场 "大家好,这是XXX播客" "大家好,欢迎"
+        if i not in anchors and i == 0:
+            if re.search(r'大家好.*这是.*播客', text) or re.search(r'大家好.*欢迎', text):
+                anchors[i] = 0  # 主持人
+
+    # ============================================================
+    # 第二步：基于称呼检测锚定更多段落
+    # ============================================================
+    # 提到其他说话者的名字 → 当前说话者是另一方
+    # 这是最高优先级的语义信号，因为称呼是明确的
+    for i, seg in enumerate(segments):
+        if i in anchors:
+            continue
+        text = seg.get('text', '')
+
+        for j, name in enumerate(speaker_names):
+            if name in text:
+                # 排除自我介绍
+                if f'我是{name}' not in text and f'我叫{name}' not in text:
+                    other_indices = [k for k in range(num_speakers) if k != j]
+                    if other_indices and num_speakers == 2:
+                        anchors[i] = other_indices[0]
+                        break
+
+    # ============================================================
+    # 第三步：基于锚点推断其他段落
+    # ============================================================
+    if not anchors:
+        anchors[0] = 0  # 默认第一段是主持人
+
+    # 找到最早的锚点
+    first_anchor_idx = min(anchors.keys())
+
+    # 填充锚点之前的段落（都设为第一个锚点的说话者）
+    for i in range(first_anchor_idx):
+        anchors[i] = anchors[first_anchor_idx]
+
+    # 基于锚点推断后续段落
+    current_speaker_idx = anchors[first_anchor_idx]
+    for i in range(first_anchor_idx + 1, len(segments)):
+        if i in anchors:
+            # 已知锚点，直接使用
+            current_speaker_idx = anchors[i]
+        else:
+            # 推断
+            prev_seg = segments[i-1]
+            curr_seg = segments[i]
+            gap = curr_seg['start'] - prev_seg['end']
+            curr_len = len(curr_seg.get('text', ''))
+            prev_len = len(prev_seg.get('text', ''))
+            curr_text = curr_seg.get('text', '')
+            prev_text = prev_seg.get('text', '')
+
+            should_switch = False
+
+            # 规则1: 间隔超过 4 秒，很可能换人
+            if gap > 4.0:
+                should_switch = True
+
+            # 规则2: 问答模式
+            # 上一段以问号结尾（提问），这一段较长 → 切换（回答）
+            if prev_text.rstrip().endswith(('?', '？')) and curr_len > 30:
+                should_switch = True
+            # 上一段很短（提问），这一段很长（回答）→ 切换
+            elif prev_len < 30 and curr_len > 80:
+                should_switch = True
+            # 上一段很长（回答），这一段很短（提问）→ 切换
+            elif prev_len > 80 and curr_len < 30:
+                should_switch = True
+
+            if should_switch:
+                current_speaker_idx = (current_speaker_idx + 1) % num_speakers
+
+            anchors[i] = current_speaker_idx
+
+    # 设置 speaker 字段
+    for i, seg in enumerate(segments):
+        seg['speaker'] = speakers[anchors[i]]['name']
 
     return segments
 
 
-def split_long_segments(segments, max_duration=300, max_chars=600):
-    """切分超长段落，根据问号/句号进行二次切分
+def split_long_segments(segments, max_duration=300, max_chars=600, speaker_names=None):
+    """切分段落，根据问号/句号/自我介绍进行切分
 
-    对于超过 max_duration 秒（默认 5 分钟）或 max_chars 字符的段落，
-    按问号和句号切分成多个子段落，为后续重新分配说话者做准备。
+    切分规则：
+    1. 说话者切换信号（"大家好""我是XXX"）：总是切分，不管段落长度
+    2. 超长段落（> max_duration 或 > max_chars）：按问号/句号切分
 
     返回新的 segments 列表（保留原 speaker 字段，但后续可重新分配）
     """
+    if speaker_names is None:
+        speaker_names = []
+
     result = []
     for seg in segments:
         duration = seg.get('end', 0) - seg.get('start', 0)
         text = seg.get('text', '').strip()
         speaker = seg.get('speaker', '')
 
-        if duration <= max_duration and len(text) <= max_chars:
-            result.append(seg)
-            continue
-
         if not text:
             result.append(seg)
             continue
 
-        # 第一轮：按问号切分（？?）
-        # 保留问号在前一段末尾
+        # 第零轮：检测说话者切换信号（"大家好""我是XXX"）并切分
+        # 这是最重要的切分点，因为同一说话者不会说"大家好,我是XXX"
+        # 总是切分，不管段落长度
+        switch_chunks = [text]
+        if speaker_names:
+            patterns = ['大家好']
+            for name in speaker_names:
+                patterns.append(f'我是{name}')
+                patterns.append(f'我叫{name}')
+
+            for pattern in patterns:
+                new_chunks = []
+                for chunk in switch_chunks:
+                    # 在模式前切分，保留模式在后面
+                    parts = re.split(rf'(?={pattern})', chunk)
+                    new_chunks.extend([p for p in parts if p.strip()])
+                switch_chunks = new_chunks
+
+        # 如果切分后只有一段，且段落不长，直接保留
+        if len(switch_chunks) <= 1 and duration <= max_duration and len(text) <= max_chars:
+            result.append(seg)
+            continue
+
+        # 第一轮：按问号切分（保留问号在前一段末尾）
         chunks = []
-        current = ''
-        for part in re.split(r'(？|\?)', text):
-            current += part
-            if part in ('？', '?'):
+        for chunk in switch_chunks:
+            current = ''
+            for part in re.split(r'(？|\?)', chunk):
+                current += part
+                if part in ('？', '?'):
+                    chunks.append(current)
+                    current = ''
+            if current:
                 chunks.append(current)
-                current = ''
-        if current:
-            chunks.append(current)
 
         # 第二轮：如果切分后仍然太长（> max_chars），按句号/感叹号再切
         final_chunks = []
@@ -1088,8 +2867,20 @@ def split_long_segments(segments, max_duration=300, max_chars=600):
             chunk = chunk.strip()
             if not chunk:
                 continue
-            if merged and len(chunk) < 30:
+            # 但不要合并"大家好""我是XXX"开头的片段到前一段
+            is_switch_start = any(chunk.startswith(p) for p in ['大家好', '我是', '我叫'])
+            if merged and len(chunk) < 30 and not is_switch_start:
                 merged[-1] += chunk
+            elif merged and merged[-1].endswith('大家好,') and is_switch_start:
+                # 特殊情况：前一段以"大家好,"结尾，当前段以"我是XXX"开头
+                # 把"大家好,"从前一段移到当前段
+                merged[-1] = merged[-1][:-4]  # 去掉"大家好,"
+                if merged[-1]:  # 如果前一段还有内容
+                    pass
+                else:
+                    merged.pop()  # 前一段为空，删除
+                chunk = '大家好,' + chunk
+                merged.append(chunk)
             else:
                 merged.append(chunk)
 
@@ -1289,10 +3080,11 @@ def reformat_transcript(text, title='', speaker_names=None):
                         seg['speaker'] = known_real[0]
     elif has_speaker and speaker_names and labels_unreliable:
         # 原标签不可靠（含 SPEAKER_XX 或超长段落）：
-        # 1. 切分超长段落
+        # 1. 切分超长段落（检测"大家好""我是XXX"等说话者切换信号）
         # 2. 清除原 speaker 字段，根据问答模式重新分配
         print(f"⚠️  检测到原说话者标签不可靠（含 SPEAKER_XX 或超长段落），将忽略原标签重新分配")
-        segments = split_long_segments(segments, max_duration=300, max_chars=600)
+        speaker_name_list = [s['name'] for s in speakers]
+        segments = split_long_segments(segments, max_duration=300, max_chars=600, speaker_names=speaker_name_list)
         # 清除原 speaker，交给 assign_speakers_to_segments 重新分配
         for seg in segments:
             seg.pop('speaker', None)

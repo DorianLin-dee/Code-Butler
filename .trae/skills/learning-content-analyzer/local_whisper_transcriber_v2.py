@@ -351,7 +351,8 @@ def transcribe_local(audio_path, model_size='base', language=None, speaker_diari
     # 说话者识别（智能开关）
     if speaker_diarization:
         # 用户显式 --speaker，用 pyannote 音色识别（精准但慢）
-        result = add_speaker_labels(result, audio_path)
+        num_speakers = len(speakers) if speakers else None
+        result = add_speaker_labels(result, audio_path, num_speakers=num_speakers, speakers=speakers)
     else:
         # 默认用智能分组（快，基于沉默间隔+内容启发式）
         num_speakers = len(speakers) if speakers else 2
@@ -385,7 +386,7 @@ def _get_hf_token():
     return None
 
 
-def add_speaker_labels(result, audio_path):
+def add_speaker_labels(result, audio_path, num_speakers=None, speakers=None):
     """添加说话者标签（使用pyannote.audio 音色识别）
 
     需要：
@@ -393,11 +394,21 @@ def add_speaker_labels(result, audio_path):
       2. 在 HuggingFace 申请 pyannote/speaker-diarization-3.1 模型访问权限
       3. 生成 access token 写入环境变量 HF_TOKEN 或文件 ~/.huggingface_token
 
-    任何步骤失败都会回退到 add_simple_speaker_labels（基于沉默间隔，无需依赖）。
+    任何步骤失败都会回退到 add_smart_speaker_labels（基于沉默间隔+内容启发式）。
     """
     try:
         from pyannote.audio import Pipeline
         import torch
+
+        # PyTorch 2.6+ 兼容补丁：强制 weights_only=False（pyannote 模型是可信来源）
+        _orig_torch_load = torch.load
+        import functools
+        @functools.wraps(_orig_torch_load)
+        def _patched_load(*args, **kwargs):
+            kwargs['weights_only'] = False
+            return _orig_torch_load(*args, **kwargs)
+        torch.load = _patched_load
+
         print(f"🎙️ 正在进行音色识别（pyannote.audio）...")
 
         # 读取 HF token
@@ -409,25 +420,55 @@ def add_speaker_labels(result, audio_path):
             print(f"   2. 申请模型访问权限：https://huggingface.co/pyannote/speaker-diarization-3.1")
             print(f"   3. 生成 token：https://huggingface.co/settings/tokens（选 Read 权限）")
             print(f"   4. 写入文件：echo '你的token' > ~/.huggingface_token")
-            print(f"   本次回退到简单说话者分组")
-            return add_simple_speaker_labels(result)
+            print(f"   本次回退到智能说话者分组")
+            n = num_speakers or (len(speakers) if speakers else 2)
+            return add_smart_speaker_labels(result, num_speakers=n, speakers=speakers)
 
-        # 加载 pyannote 说话者识别 pipeline
-        # 注意：新版 pyannote.audio 用 token= 参数（旧版 use_auth_token 已废弃）
-        try:
-            pipeline = Pipeline.from_pretrained(
-                "pyannote/speaker-diarization-3.1",
-                token=token
-            )
-        except Exception as e:
-            print(f"⚠️ 模型加载失败: {e}")
-            print(f"   请确认：1) 已申请模型权限  2) token 有效  3) 网络通畅")
-            print(f"   本次回退到简单说话者分组")
-            return add_simple_speaker_labels(result)
+        # 加载 pyannote 说话者识别 pipeline（优先离线加载）
+        pipeline = None
+        for attempt in ['offline', 'online']:
+            try:
+                if attempt == 'offline':
+                    print(f"   尝试从本地缓存加载 pyannote 模型...")
+                    pipeline = Pipeline.from_pretrained(
+                        "pyannote/speaker-diarization-3.1",
+                        use_auth_token=token,
+                        local_files_only=True
+                    )
+                else:
+                    print(f"   本地缓存不可用，从 HuggingFace 下载...")
+                    pipeline = Pipeline.from_pretrained(
+                        "pyannote/speaker-diarization-3.1",
+                        use_auth_token=token
+                    )
+                break
+            except Exception as e:
+                if attempt == 'offline':
+                    print(f"   本地缓存加载失败，尝试在线加载...")
+                else:
+                    print(f"⚠️ 模型加载失败: {e}")
+                    print(f"   请确认：1) 已申请模型权限  2) token 有效  3) 网络通畅")
+                    print(f"   本次回退到智能说话者分组")
+                    n = num_speakers or (len(speakers) if speakers else 2)
+                    return add_smart_speaker_labels(result, num_speakers=n, speakers=speakers)
+
+        if pipeline is None:
+            n = num_speakers or (len(speakers) if speakers else 2)
+            return add_smart_speaker_labels(result, num_speakers=n, speakers=speakers)
+
+        # 如果已知说话者数量，传入 num_speakers 提高准确率
+        if num_speakers or (speakers and len(speakers) > 0):
+            n = num_speakers or len(speakers)
+            print(f"🎯 已知说话者数量: {n}，将传入参数提高准确率")
 
         # 处理音频
         print(f"🔄 正在分析音色（首次运行会下载模型，约 1GB）...")
-        diarization = pipeline(audio_path)
+        # 已知说话者数量时传入参数
+        diarization_kwargs = {}
+        if num_speakers or (speakers and len(speakers) > 0):
+            n = num_speakers or len(speakers)
+            diarization_kwargs['num_speakers'] = n
+        diarization = pipeline(audio_path, **diarization_kwargs)
 
         # 为每个 segment 分配说话者
         speaker_segments = []
@@ -458,12 +499,14 @@ def add_speaker_labels(result, audio_path):
         return result
 
     except ImportError:
-        print(f"⚠️ pyannote.audio 未安装，回退到简单说话者分组")
+        print(f"⚠️ pyannote.audio 未安装，回退到智能说话者分组")
         print(f"   安装方式：pip3 install pyannote.audio torch")
-        return add_simple_speaker_labels(result)
+        n = num_speakers or (len(speakers) if speakers else 2)
+        return add_smart_speaker_labels(result, num_speakers=n, speakers=speakers)
     except Exception as e:
-        print(f"⚠️ 音色识别失败: {e}，回退到简单分组")
-        return add_simple_speaker_labels(result)
+        print(f"⚠️ 音色识别失败: {e}，回退到智能分组")
+        n = num_speakers or (len(speakers) if speakers else 2)
+        return add_smart_speaker_labels(result, num_speakers=n, speakers=speakers)
 
 
 def add_smart_speaker_labels(result, num_speakers=2, speakers=None):
