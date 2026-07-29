@@ -335,7 +335,121 @@ def download_audio(url, output_folder):
     return None
 
 
-def print_doubao_instructions(audio_path, folder_path):
+def generate_doubao_prompt(audio_path, folder_path, info=None, speakers=None):
+    """生成豆包转录提示词文件
+
+    Args:
+        audio_path: 音频文件路径
+        folder_path: 项目文件夹路径
+        info: 视频信息字典（含 title, description, duration）
+        speakers: 说话者姓名列表
+
+    Returns:
+        str: 提示词文件路径
+    """
+    folder = Path(folder_path)
+    prompt_path = folder / '豆包转录提示词.txt'
+
+    lines = []
+    lines.append("=" * 60)
+    lines.append("豆包转录提示词（直接复制给豆包）")
+    lines.append("=" * 60)
+    lines.append("")
+    lines.append("【复制以下内容发送给豆包】")
+    lines.append("-" * 60)
+    lines.append("")
+
+    # 音频信息
+    if info:
+        if info.get('title'):
+            lines.append(f"音频标题：{info['title']}")
+        if info.get('duration'):
+            dur = info['duration']
+            lines.append(f"时长：{dur // 60}分{dur % 60}秒")
+    lines.append("")
+
+    # 转录指令
+    lines.append("请转录这段音频，按以下格式输出：")
+    lines.append("")
+    lines.append("Speaker X HH:MM:SS.mmm")
+    lines.append("转录文本内容...")
+    lines.append("")
+    lines.append("要求：")
+    lines.append("")
+
+    # 说话者识别
+    if speakers:
+        if len(speakers) == 1:
+            lines.append(f"1. 单人演讲，说话者：{speakers[0]}")
+        else:
+            lines.append(f"1. 识别不同的说话者，预期有 {len(speakers)} 人：")
+            for i, spk in enumerate(speakers, 1):
+                lines.append(f"   - Speaker {i}：{spk}")
+    else:
+        lines.append("1. 识别不同的说话者，标注为 Speaker 1、Speaker 2 等")
+    lines.append("")
+
+    # 格式要求
+    lines.append("2. 每段开头标明说话者和时间戳（HH:MM:SS.mmm 格式）")
+    lines.append("3. 保留口语原文，不要润色或精简")
+    lines.append("4. 输出完整转录文本，不要省略任何内容")
+    lines.append("")
+
+    # 专有名词提示
+    if info:
+        desc = info.get('description', '')
+        title = info.get('title', '')
+        combined = title + ' ' + desc
+
+        # 提取可能的关键术语
+        terms = []
+
+        # 英文术语
+        import re
+        en_terms = re.findall(r'[A-Z][A-Za-z]{2,}(?:\s+[A-Z][A-Za-z]+)*', combined)
+        terms.extend(en_terms[:10])
+
+        # 常见科技术语
+        tech_keywords = ['AI', 'GPT', 'LLM', 'API', 'SaaS', 'B端', 'C端',
+                         'ROI', 'GMV', 'DAU', 'MAU', 'ARPU', 'LTV',
+                         'VC', 'PE', 'IPO', 'BP', 'DD', 'ESG']
+        for kw in tech_keywords:
+            if kw in combined:
+                terms.append(kw)
+
+        if terms:
+            lines.append("5. 注意以下专有名词的准确转录：")
+            unique_terms = list(dict.fromkeys(terms))[:8]  # 去重，最多8个
+            for term in unique_terms:
+                lines.append(f"   - {term}")
+            lines.append("")
+
+    lines.append("-" * 60)
+    lines.append("")
+    lines.append("=" * 60)
+    lines.append("操作步骤")
+    lines.append("=" * 60)
+    lines.append("")
+    lines.append(f"1. 打开豆包网页版：https://www.doubao.com/chat/")
+    lines.append(f"2. 上传音频文件：{Path(audio_path).name}")
+    lines.append(f"3. 复制上面的【转录提示词】发送给豆包")
+    lines.append(f"4. 等待转录完成（约 {info['duration']//60 if info and info.get('duration') else 3} 分钟）")
+    lines.append(f"5. 复制完整转录结果，保存为：doubao_transcript.txt")
+    lines.append(f"   保存位置：{folder_path}/")
+    lines.append("")
+    lines.append("=" * 60)
+    lines.append(f"项目文件夹：{folder_path}")
+    lines.append(f"音频文件：{audio_path}")
+    lines.append("=" * 60)
+
+    prompt_path.write_text('\n'.join(lines), encoding='utf-8')
+    return str(prompt_path)
+
+
+def print_doubao_instructions(audio_path, folder_path, info=None, speakers=None):
+    """打印豆包转录指引（并生成提示词文件）"""
+    prompt_file = generate_doubao_prompt(audio_path, folder_path, info, speakers)
+
     print("\n" + "="*60)
     print("🎤 用豆包进行语音转录")
     print("="*60)
@@ -343,26 +457,17 @@ def print_doubao_instructions(audio_path, folder_path):
     print(f"📁 音频文件: {audio_path}")
     print(f"📂 项目文件夹: {folder_path}")
     print()
-    print("📌 操作步骤：")
+    print(f"✅ 已生成豆包提示词文件：{Path(prompt_file).name}")
+    print("   📋 打开该文件，复制里面的内容直接发给豆包")
     print()
-    print("   1. 打开豆包网页版：")
-    print("      🔗 https://www.doubao.com/chat/")
+    print("-" * 60)
+    print("快速操作：")
     print()
-    print("   2. 登录您的豆包账号")
-    print()
-    print("   3. 把上面的音频文件拖进聊天窗口")
-    print("      （支持 .mp3 .wav .m4a 等格式）")
-    print()
-    print("   4. 等待豆包完成转录（长音频约 2-5 分钟）")
-    print()
-    print(f"   5. 把转录结果保存为 doubao_transcript.txt")
-    print(f"      放到项目文件夹: {folder_path}/")
-    print()
-    print("="*60)
-    print()
-    print("💡 豆包转录完成后，运行以下命令继续处理：")
-    print()
-    print(f"   python3 {sys.argv[0]} --process {folder_path}/doubao_transcript.txt")
+    print("   1. 打开豆包：https://www.doubao.com/chat/")
+    print(f"   2. 上传音频：{Path(audio_path).name}")
+    print(f"   3. 复制提示词：打开 {Path(prompt_file).name}，复制内容发给豆包")
+    print("   4. 转录完成后，保存为 doubao_transcript.txt 放到项目文件夹")
+    print("-" * 60)
     print()
 
     try:
@@ -501,7 +606,7 @@ def step1_download_and_prepare(url, output_dir='./output'):
         print(f"\n📄 简介版文稿: {web_transcript_path.name}")
         print("   （网络搜索未找到完整文稿，仅包含简介信息）")
 
-    print_doubao_instructions(audio_path, folder_path)
+    print_doubao_instructions(audio_path, folder_path, info, speakers)
 
     print("\n" + "="*60)
     print("📋 项目文件夹内容：")

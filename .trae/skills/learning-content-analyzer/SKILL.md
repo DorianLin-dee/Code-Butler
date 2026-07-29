@@ -43,6 +43,7 @@ output/
 ├── 01_秦深涛_神经接口的下一个十年/
 │   ├── audio.mp3
 │   ├── transcript_web.md      (网络版文稿)
+│   ├── 豆包转录提示词.txt     (可直接复制给豆包)
 │   ├── doubao_transcript.txt   (用户放豆包转录稿)
 │   ├── transcript_processed.md (处理后转录稿)
 │   ├── analysis.html         (HTML 阅读页)
@@ -58,7 +59,7 @@ output/
 
 #### 手动命令版
 
-**步骤 1：下载并准备（自动编号 + 独立文件夹 + 网络版文稿）**
+**步骤 1：下载并准备（自动编号 + 独立文件夹 + 网络版文稿 + 豆包提示词）**
 ```bash
 python3 .trae/skills/learning-content-analyzer/learning_pipeline.py "视频URL或音频文件"
 ```
@@ -69,7 +70,7 @@ python3 .trae/skills/learning-content-analyzer/learning_pipeline.py "视频URL�
 - **创建独立文件夹**：`{序号}_{标题}`
 - **输出一版基于网络搜索的文稿**（搜索网上现成文稿，找不到则用简介）
 - 识别说话者姓名
-- 提示用户打开豆包网页版转录
+- **生成豆包提示词文件**（`豆包转录提示词.txt`，含说话者、专有名词、格式要求，可直接复制）
 
 **步骤 2：处理豆包转录稿 + 生成 HTML**
 ```bash
