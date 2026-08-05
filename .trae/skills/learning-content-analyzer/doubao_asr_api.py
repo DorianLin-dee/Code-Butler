@@ -181,16 +181,24 @@ def submit_task(audio_url, api_key, enable_speaker=True, enable_punc=True,
         },
     }
 
+    # 说话人分离需要 ssd_version 才能生效（文档要求）
+    # 仅在 enable_speaker_info=True 且 language 为空或 "zh-CN" 时生效
+    if enable_speaker:
+        request_body["request"]["ssd_version"] = "latest"
+
     # 指定语言
     if language:
         request_body["audio"]["language"] = language
 
     # 热词/上下文
+    # 文档：corpus 是 string 类型，context 是其子字段
+    # context 格式: {"hotwords":[{"word":"热词1号"}, {"word":"热词2号"}]}
     if hotwords:
         word_list = [{"word": w.strip()} for w in hotwords if w.strip()]
         if word_list:
-            context = json.dumps({"hotwords": word_list}, ensure_ascii=False)
-            request_body["request"]["corpus"] = context
+            request_body["request"]["corpus"] = json.dumps({
+                "context": json.dumps({"hotwords": word_list}, ensure_ascii=False)
+            }, ensure_ascii=False)
 
     print(f"📤 提交转录任务...")
     print(f"   任务 ID: {task_id}")
@@ -314,6 +322,26 @@ def format_transcript(result, speakers=None):
         elif isinstance(api_result, list) and api_result:
             utterances = api_result[0].get("utterances", [])
 
+    # 调试：打印第一个 utterance 的完整结构，方便排查字段名
+    if utterances:
+        print(f"   🔍 [DEBUG] 第一个 utterance 结构:")
+        print(f"   {json.dumps(utterances[0], ensure_ascii=False, indent=2)[:500]}")
+        # 统计所有 speaker_id 值
+        speaker_ids = set()
+        for u in utterances:
+            sid = u.get("speaker_id")
+            if sid is None:
+                additions = u.get("additions", {})
+                if isinstance(additions, str):
+                    try:
+                        additions = json.loads(additions)
+                    except (json.JSONDecodeError, ValueError):
+                        additions = {}
+                if isinstance(additions, dict):
+                    sid = additions.get("speaker_id")
+            speaker_ids.add(str(sid))
+        print(f"   🔍 [DEBUG] 说话人 ID 集合: {speaker_ids}")
+
     if not utterances:
         # 没有 utterances，用完整文本
         text = ""
@@ -335,8 +363,21 @@ def format_transcript(result, speakers=None):
         if not text:
             continue
 
-        # 说话人标签
-        speaker_label = u.get("speaker_id", "1")
+        # 说话人标签：优先从 utterance 顶层取，再从 additions 取
+        # API 文档中 speaker_id 可能不在顶层，而在 additions 子字段里
+        speaker_label = u.get("speaker_id")
+        if speaker_label is None:
+            additions = u.get("additions", {})
+            if isinstance(additions, str):
+                try:
+                    additions = json.loads(additions)
+                except (json.JSONDecodeError, ValueError):
+                    additions = {}
+            if isinstance(additions, dict):
+                speaker_label = additions.get("speaker_id", "1")
+            else:
+                speaker_label = "1"
+
         if isinstance(speaker_label, str) and speaker_label.startswith("Speaker"):
             speaker_id = speaker_label
         else:
