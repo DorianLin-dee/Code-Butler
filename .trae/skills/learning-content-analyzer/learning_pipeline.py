@@ -551,15 +551,139 @@ def generate_html(transcript_file, folder_path=None):
         return None
 
 
-def step1_download_and_prepare(url, output_dir='./output'):
-    """步骤 1：下载音频 + 搜索网络文稿 + 准备"""
+def transcribe_with_doubao_api(url, folder_path, info, speakers):
+    """用豆包 ASR API 自动转录
+
+    用 yt-dlp 获取音频直链 URL，提交给豆包 ASR 2.0 API，
+    轮询结果并保存为 doubao_transcript.txt。
+
+    Args:
+        url: 原始视频/音频 URL（用于获取直链）
+        folder_path: 项目文件夹路径
+        info: 视频信息字典
+        speakers: 说话者姓名列表
+    """
+    print("\n" + "="*60)
+    print("🎤 豆包 ASR 2.0 API 自动转录")
+    print("="*60)
+
+    try:
+        from doubao_asr_api import transcribe as api_transcribe, load_api_key
+    except ImportError:
+        print("❌ 无法导入 doubao_asr_api.py")
+        print("   请确保该文件在 skill 目录下")
+        return
+
+    # 检查 API Key
+    api_key = load_api_key()
+    if not api_key:
+        print("❌ 未找到豆包 ASR API Key！")
+        print(f"   请运行: echo 'your-api-key' > ~/.doubao_asr_key")
+        print("   回退到手动转录模式...")
+        print_doubao_instructions(str(folder_path / 'audio.mp3'), folder_path, info, speakers)
+        return
+
+    # 从标题/简介提取热词
+    hotwords = extract_hotwords_from_info(info)
+
+    # 输出路径
+    output_path = str(Path(folder_path) / 'doubao_transcript.txt')
+
+    # 判断输入是 URL 还是本地文件
+    if Path(url).is_file():
+        print("❌ 本地文件无法直接用 API 转录（API 需要公网 URL）")
+        print("   回退到手动转录模式...")
+        print_doubao_instructions(str(folder_path / 'audio.mp3'), folder_path, info, speakers)
+        return
+
+    # 用 API 转录
+    result = api_transcribe(
+        audio_url_or_video=url,
+        api_key=api_key,
+        speakers=speakers,
+        hotwords=hotwords,
+        output_path=output_path,
+        timeout=900,  # 15 分钟
+        poll_interval=10,
+    )
+
+    if result:
+        print(f"\n✅ 转录完成！文件: {result}")
+        print(f"\n💡 接下来运行以下命令生成 HTML：")
+        speaker_arg = f"--speakers '{','.join(speakers)}'" if speakers else ""
+        print(f"   python3 {sys.argv[0]} --process {result} {speaker_arg}")
+    else:
+        print(f"\n⚠️ API 转录失败，回退到手动转录模式...")
+        print_doubao_instructions(str(folder_path / 'audio.mp3'), folder_path, info, speakers)
+
+
+def extract_hotwords_from_info(info):
+    """从视频信息提取热词（用于提升专有名词识别率）
+
+    Args:
+        info: 视频信息字典
+
+    Returns:
+        list: 热词列表
+    """
+    import re as re_module
+    hotwords = []
+
+    title = info.get('title', '')
+    desc = info.get('description', '')
+    combined = f"{title} {desc}"
+
+    # 英文专有名词（大写开头，2+ 字符）
+    en_terms = re_module.findall(r'[A-Z][A-Za-z]{2,}(?:\s+[A-Z][A-Za-z]+)*', combined)
+    hotwords.extend(en_terms[:8])
+
+    # 中文名词（从标题中的冒号/破折号后面提取）
+    # 如 "对话王新宇" → 王新宇
+    name_patterns = [
+        r'对话([\u4e00-\u9fa5]{2,4})',
+        r'对谈([\u4e00-\u9fa5]{2,4})',
+        r'专访([\u4e00-\u9fa5]{2,4})',
+        r'访谈([\u4e00-\u9fa5]{2,4})',
+    ]
+    for p in name_patterns:
+        m = re_module.search(p, title)
+        if m:
+            hotwords.append(m.group(1))
+
+    # 常见科技术语
+    tech_terms = ['AI', 'GPT', 'LLM', 'API', 'SaaS', 'ROI', 'GMV',
+                  'VC', 'PE', 'IPO', 'B端', 'C端', '大模型']
+    for term in tech_terms:
+        if term in combined:
+            hotwords.append(term)
+
+    # 去重，最多 15 个
+    seen = set()
+    unique = []
+    for w in hotwords:
+        if w not in seen and len(w) >= 2:
+            seen.add(w)
+            unique.append(w)
+    return unique[:15]
+
+
+def step1_download_and_prepare(url, output_dir='./output', use_doubao_api=False):
+    """步骤 1：下载音频 + 搜索网络文稿 + 准备
+
+    Args:
+        url: 视频URL或本地音频文件
+        output_dir: 输出根目录
+        use_doubao_api: 是否用豆包 ASR API 自动转录（True）或生成提示词让用户手动转录（False）
+    """
     Path(output_dir).mkdir(parents=True, exist_ok=True)
 
     print("="*60)
     print("📥 步骤 1：下载音频并准备")
     print("="*60)
 
-    if Path(url).is_file():
+    is_local_file = Path(url).is_file()
+
+    if is_local_file:
         audio_path_input = url
         info = {'title': Path(url).stem, 'description': '', 'uploader': '', 'webpage_url': ''}
         print(f"📁 使用本地文件: {audio_path_input}")
@@ -606,7 +730,13 @@ def step1_download_and_prepare(url, output_dir='./output'):
         print(f"\n📄 简介版文稿: {web_transcript_path.name}")
         print("   （网络搜索未找到完整文稿，仅包含简介信息）")
 
-    print_doubao_instructions(audio_path, folder_path, info, speakers)
+    # 转录方式选择
+    if use_doubao_api:
+        # 用豆包 ASR API 自动转录
+        transcribe_with_doubao_api(url, folder_path, info, speakers)
+    else:
+        # 生成豆包提示词，让用户手动转录
+        print_doubao_instructions(audio_path, folder_path, info, speakers)
 
     print("\n" + "="*60)
     print("📋 项目文件夹内容：")
@@ -678,6 +808,8 @@ def main():
     parser.add_argument('--html', help='为已处理的转录稿生成 HTML')
     parser.add_argument('--folder', help='指定输出文件夹（默认自动创建）')
     parser.add_argument('--speakers', help='说话者姓名，逗号分隔')
+    parser.add_argument('--doubao-api', action='store_true',
+                        help='用豆包 ASR 2.0 API 自动转录（需配置 ~/.doubao_asr_key）')
 
     args = parser.parse_args()
 
@@ -686,7 +818,7 @@ def main():
     elif args.process:
         step2_process(args.process, args.speakers, args.folder)
     elif args.url:
-        step1_download_and_prepare(args.url, args.output_dir)
+        step1_download_and_prepare(args.url, args.output_dir, use_doubao_api=args.doubao_api)
     else:
         parser.print_help()
 

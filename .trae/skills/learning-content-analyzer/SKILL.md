@@ -31,10 +31,21 @@ description: "分析书籍、播客、视频等学习内容，生成中文思维
 ### 完整工作流（推荐）
 
 ```
-用户给链接 → 下载音频 + 自动编号 + 标题命名 + 网络版文稿 → 用户用豆包转录
-                                                                 ↓
-生成 HTML ← 处理转录稿（格式化 + 说话者 + 词语校正）
+用户给链接 → 下载音频 + 自动编号 + 标题命名 + 网络版文稿
+                                                    ↓
+              豆包 ASR 2.0 API 自动转录（无需手动操作）
+                                                    ↓
+                          处理转录稿（格式化 + 说话者 + 词语校正）
+                                                    ↓
+                                    生成 HTML + 思维导图 + 核心观点
 ```
+
+**两种转录方式：**
+
+| 方式 | 命令 | 特点 |
+|------|------|------|
+| **🤖 API 自动转录**（推荐） | `--doubao-api` | 全自动，无需手动操作，支持说话人分离+热词 |
+| **📋 手动豆包转录** | 默认 | 生成提示词文件，用户复制给豆包网页版 |
 
 **文件夹结构：每个转录一个独立文件夹，自动编号递增（01_, 02_, 03_...）**
 
@@ -43,8 +54,8 @@ output/
 ├── 01_秦深涛_神经接口的下一个十年/
 │   ├── audio.mp3
 │   ├── transcript_web.md      (网络版文稿)
-│   ├── 豆包转录提示词.txt     (可直接复制给豆包)
-│   ├── doubao_transcript.txt   (用户放豆包转录稿)
+│   ├── 豆包转录提示词.txt     (手动转录时用，API 模式不生成)
+│   ├── doubao_transcript.txt   (豆包转录稿)
 │   ├── transcript_processed.md (处理后转录稿)
 │   ├── analysis.html         (HTML 阅读页)
 │   ├── key_points.md         (核心观点)
@@ -59,8 +70,12 @@ output/
 
 #### 手动命令版
 
-**步骤 1：下载并准备（自动编号 + 独立文件夹 + 网络版文稿 + 豆包提示词）**
+**步骤 1：下载并准备（自动编号 + 独立文件夹 + 网络版文稿 + 转录）**
 ```bash
+# 方式 A：API 自动转录（推荐，需配置 API Key）
+python3 .trae/skills/learning-content-analyzer/learning_pipeline.py "视频URL或音频文件" --doubao-api
+
+# 方式 B：手动豆包转录（生成提示词文件）
 python3 .trae/skills/learning-content-analyzer/learning_pipeline.py "视频URL或音频文件"
 ```
 自动完成：
@@ -70,7 +85,22 @@ python3 .trae/skills/learning-content-analyzer/learning_pipeline.py "视频URL�
 - **创建独立文件夹**：`{序号}_{标题}`
 - **输出一版基于网络搜索的文稿**（搜索网上现成文稿，找不到则用简介）
 - 识别说话者姓名
-- **生成豆包提示词文件**（`豆包转录提示词.txt`，含说话者、专有名词、格式要求，可直接复制）
+- `--doubao-api`：**自动调用豆包 ASR 2.0 API 转录**（说话人分离+热词+标点+顺滑）
+- 默认：**生成豆包提示词文件**（`豆包转录提示词.txt`，含说话者、专有名词、格式要求，可直接复制）
+
+### 豆包 ASR 2.0 API 配置（一次性）
+
+```bash
+# 1. 在火山引擎控制台购买「豆包录音文件识别模型2.0」资源
+# 2. 在控制台获取 API Key
+# 3. 保存到配置文件
+echo 'your-api-key' > ~/.doubao_asr_key
+```
+
+配置完成后，用 `--doubao-api` 即可全自动转录，无需手动操作。
+- 自动从标题/简介提取热词（人名、公司名、科技术语），提升专有名词识别率
+- 支持说话人分离（10人以内）
+- 自动标点、顺滑、ITN 文本规范化
 
 **步骤 2：处理豆包转录稿 + 生成 HTML**
 ```bash
@@ -694,7 +724,8 @@ python3.11 .trae/skills/learning-content-analyzer/ai_html_generator.py \
 
 ## 📂 相关工具
 
-- **learning_pipeline.py** - ⭐ 完整 Pipeline（下载→命名→指引豆包转录→处理→生成HTML）
+- **learning_pipeline.py** - ⭐ 完整 Pipeline（下载→命名→转录→处理→生成HTML）
+- **doubao_asr_api.py** - 🤖 豆包 ASR 2.0 API 转录工具（自动转录，说话人分离，热词优化）
 - **process_doubao_transcript.py** - 豆包转录稿处理工具（格式化 + 说话者 + 词语校正）
 - **dialogue_extractor.py** - 📊 对话内容提炼工具（观点提取 + 思维导图 + HTML，L1 快速预览版）
 - **ai_html_generator.py** - 🎨 AI 深度分析 HTML 生成器（L2 高质量版，AI 提炼 + 技术解析）
