@@ -551,6 +551,55 @@ def generate_html(transcript_file, folder_path=None):
         return None
 
 
+def transcribe_with_local_whisper(audio_path, folder_path, info, speakers):
+    """用本地 Whisper 转录（备选方案，离线可用）
+
+    Args:
+        audio_path: 本地音频文件路径
+        folder_path: 项目文件夹路径
+        info: 视频信息字典
+        speakers: 说话者姓名列表
+    """
+    print("\n" + "="*60)
+    print("🎙️ 本地 Whisper 转录（备选方案）")
+    print("="*60)
+
+    script_path = SCRIPT_DIR / 'local_whisper_transcriber_v2.py'
+    if not script_path.exists():
+        script_path = SCRIPT_DIR / 'quick_transcribe.py'
+
+    if not script_path.exists():
+        print("❌ 未找到本地转录脚本")
+        print("   回退到手动豆包转录模式...")
+        print_doubao_instructions(audio_path, folder_path, info, speakers)
+        return
+
+    output_path = str(folder_path / 'doubao_transcript.txt')
+
+    cmd = [sys.executable, str(script_path), audio_path, '--output-dir', str(folder_path)]
+
+    if speakers:
+        cmd.extend(['--speaker-names', ','.join(speakers)])
+
+    print(f"   音频: {audio_path}")
+    print(f"   输出: {output_path}")
+
+    try:
+        result = subprocess.run(cmd, capture_output=False)
+        if result.returncode == 0:
+            print(f"\n✅ 本地转录完成！")
+            print(f"\n💡 接下来运行以下命令生成 HTML：")
+            speaker_arg = f"--speakers '{','.join(speakers)}'" if speakers else ""
+            print(f"   python3 {sys.argv[0]} --process {output_path} {speaker_arg}")
+        else:
+            print(f"\n⚠️ 本地转录失败，回退到手动豆包转录模式...")
+            print_doubao_instructions(audio_path, folder_path, info, speakers)
+    except Exception as e:
+        print(f"\n⚠️ 本地转录出错: {e}")
+        print("   回退到手动豆包转录模式...")
+        print_doubao_instructions(audio_path, folder_path, info, speakers)
+
+
 def transcribe_with_doubao_api(url, folder_path, info, speakers):
     """用豆包 ASR API 自动转录
 
@@ -578,7 +627,8 @@ def transcribe_with_doubao_api(url, folder_path, info, speakers):
     api_key = load_api_key()
     if not api_key:
         print("❌ 未找到豆包 ASR API Key！")
-        print(f"   请运行: echo 'your-api-key' > ~/.doubao_asr_key")
+        print(f"   请把 API Key 写入 skill 目录下的 api_key.txt")
+        print(f"   或 ~/.doubao_asr_key")
         print("   回退到手动转录模式...")
         print_doubao_instructions(str(folder_path / 'audio.mp3'), folder_path, info, speakers)
         return
@@ -667,13 +717,19 @@ def extract_hotwords_from_info(info):
     return unique[:15]
 
 
-def step1_download_and_prepare(url, output_dir='./output', use_doubao_api=False):
-    """步骤 1：下载音频 + 搜索网络文稿 + 准备
+def step1_download_and_prepare(url, output_dir='./output', use_doubao_api=True, use_local_whisper=False):
+    """步骤 1：下载音频 + 搜索网络文稿 + 转录
+
+    转录方式优先级：
+    1. use_local_whisper=True → 本地 Whisper 转录（备选，离线可用）
+    2. use_doubao_api=True → 豆包 ASR 2.0 API 自动转录（默认，推荐）
+    3. 都为 False → 手动豆包网页版转录（生成提示词文件）
 
     Args:
         url: 视频URL或本地音频文件
         output_dir: 输出根目录
-        use_doubao_api: 是否用豆包 ASR API 自动转录（True）或生成提示词让用户手动转录（False）
+        use_doubao_api: 是否用豆包 ASR API 自动转录（默认 True）
+        use_local_whisper: 是否用本地 Whisper 转录（默认 False，备选方案）
     """
     Path(output_dir).mkdir(parents=True, exist_ok=True)
 
@@ -730,12 +786,15 @@ def step1_download_and_prepare(url, output_dir='./output', use_doubao_api=False)
         print(f"\n📄 简介版文稿: {web_transcript_path.name}")
         print("   （网络搜索未找到完整文稿，仅包含简介信息）")
 
-    # 转录方式选择
-    if use_doubao_api:
-        # 用豆包 ASR API 自动转录
+    # 转录方式选择（优先级：本地 Whisper > 豆包 API > 手动豆包）
+    if use_local_whisper:
+        # 备选方案：本地 Whisper 转录
+        transcribe_with_local_whisper(audio_path, folder_path, info, speakers)
+    elif use_doubao_api:
+        # 默认方案：豆包 ASR 2.0 API 自动转录
         transcribe_with_doubao_api(url, folder_path, info, speakers)
     else:
-        # 生成豆包提示词，让用户手动转录
+        # 备选方案：手动豆包网页版转录
         print_doubao_instructions(audio_path, folder_path, info, speakers)
 
     print("\n" + "="*60)
@@ -808,8 +867,10 @@ def main():
     parser.add_argument('--html', help='为已处理的转录稿生成 HTML')
     parser.add_argument('--folder', help='指定输出文件夹（默认自动创建）')
     parser.add_argument('--speakers', help='说话者姓名，逗号分隔')
-    parser.add_argument('--doubao-api', action='store_true',
-                        help='用豆包 ASR 2.0 API 自动转录（需配置 ~/.doubao_asr_key）')
+    parser.add_argument('--local', action='store_true',
+                        help='强制用本地 Whisper 转录（默认优先豆包 ASR API）')
+    parser.add_argument('--manual', action='store_true',
+                        help='用手动豆包网页版转录（生成提示词文件）')
 
     args = parser.parse_args()
 
@@ -818,7 +879,10 @@ def main():
     elif args.process:
         step2_process(args.process, args.speakers, args.folder)
     elif args.url:
-        step1_download_and_prepare(args.url, args.output_dir, use_doubao_api=args.doubao_api)
+        # 转录方式优先级：--local > --manual > 默认（API 优先）
+        step1_download_and_prepare(args.url, args.output_dir,
+                                    use_doubao_api=not (args.local or args.manual),
+                                    use_local_whisper=args.local)
     else:
         parser.print_help()
 

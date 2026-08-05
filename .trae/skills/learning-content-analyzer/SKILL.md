@@ -40,12 +40,13 @@ description: "分析书籍、播客、视频等学习内容，生成中文思维
                                     生成 HTML + 思维导图 + 核心观点
 ```
 
-**两种转录方式：**
+**三种转录方式（优先级：API > 本地 Whisper > 手动）：**
 
 | 方式 | 命令 | 特点 |
 |------|------|------|
-| **🤖 API 自动转录**（推荐） | `--doubao-api` | 全自动，无需手动操作，支持说话人分离+热词 |
-| **📋 手动豆包转录** | 默认 | 生成提示词文件，用户复制给豆包网页版 |
+| **🤖 豆包 ASR API**（默认，推荐） | 默认 | 全自动，无需手动操作，支持说话人分离+热词 |
+| **🎙️ 本地 Whisper**（备选） | `--local` | 离线可用，无需 API，需安装 Whisper |
+| **📋 手动豆包转录**（备选） | `--manual` | 生成提示词文件，用户复制给豆包网页版 |
 
 **文件夹结构：每个转录一个独立文件夹，自动编号递增（01_, 02_, 03_...）**
 
@@ -72,11 +73,14 @@ output/
 
 **步骤 1：下载并准备（自动编号 + 独立文件夹 + 网络版文稿 + 转录）**
 ```bash
-# 方式 A：API 自动转录（推荐，需配置 API Key）
-python3 .trae/skills/learning-content-analyzer/learning_pipeline.py "视频URL或音频文件" --doubao-api
-
-# 方式 B：手动豆包转录（生成提示词文件）
+# 默认：豆包 ASR API 自动转录（推荐，需配置 API Key）
 python3 .trae/skills/learning-content-analyzer/learning_pipeline.py "视频URL或音频文件"
+
+# 备选 1：本地 Whisper 转录（离线可用）
+python3 .trae/skills/learning-content-analyzer/learning_pipeline.py "视频URL或音频文件" --local
+
+# 备选 2：手动豆包网页版转录（生成提示词文件）
+python3 .trae/skills/learning-content-analyzer/learning_pipeline.py "视频URL或音频文件" --manual
 ```
 自动完成：
 - 下载音频（B站/YouTube/本地文件）
@@ -85,22 +89,25 @@ python3 .trae/skills/learning-content-analyzer/learning_pipeline.py "视频URL�
 - **创建独立文件夹**：`{序号}_{标题}`
 - **输出一版基于网络搜索的文稿**（搜索网上现成文稿，找不到则用简介）
 - 识别说话者姓名
-- `--doubao-api`：**自动调用豆包 ASR 2.0 API 转录**（说话人分离+热词+标点+顺滑）
-- 默认：**生成豆包提示词文件**（`豆包转录提示词.txt`，含说话者、专有名词、格式要求，可直接复制）
+- 默认：**自动调用豆包 ASR 2.0 API 转录**（说话人分离+热词+标点+顺滑）
+- `--local`：用本地 Whisper 转录（备选方案）
+- `--manual`：**生成豆包提示词文件**（`豆包转录提示词.txt`，含说话者、专有名词、格式要求）
 
 ### 豆包 ASR 2.0 API 配置（一次性）
 
 ```bash
 # 1. 在火山引擎控制台购买「豆包录音文件识别模型2.0」资源
 # 2. 在控制台获取 API Key
-# 3. 保存到配置文件
-echo 'your-api-key' > ~/.doubao_asr_key
+# 3. 把 API Key 写入 skill 目录下的 api_key.txt
+echo 'your-api-key' > .trae/skills/learning-content-analyzer/api_key.txt
 ```
 
-配置完成后，用 `--doubao-api` 即可全自动转录，无需手动操作。
+配置完成后，默认即可全自动转录，无需手动操作。
 - 自动从标题/简介提取热词（人名、公司名、科技术语），提升专有名词识别率
 - 支持说话人分离（10人以内）
 - 自动标点、顺滑、ITN 文本规范化
+
+> **API Key 安全说明**：`api_key.txt` 已加入 `.gitignore`，不会被上传到 GitHub。脚本也会依次从 skill 目录、`~/.doubao_asr_key`、环境变量查找 API Key。
 
 **步骤 2：处理豆包转录稿 + 生成 HTML**
 ```bash

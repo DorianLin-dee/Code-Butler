@@ -53,16 +53,32 @@ SUBMIT_URL = "https://openspeech.bytedance.com/api/v3/auc/bigmodel/submit"
 QUERY_URL = "https://openspeech.bytedance.com/api/v3/auc/bigmodel/query"
 RESOURCE_ID = "volc.seedasr.auc"  # 豆包录音文件识别模型 2.0
 
-KEY_FILE = Path.home() / ".doubao_asr_key"
+# API Key 查找路径（按优先级排序）
+# 1. skill 目录下的 api_key.txt（本地存储，已加入 .gitignore）
+# 2. 用户主目录下的 ~/.doubao_asr_key（兼容旧配置）
+# 3. 环境变量 DOUBAO_ASR_KEY
+SKILL_DIR = Path(__file__).parent
+KEY_FILES = [
+    SKILL_DIR / "api_key.txt",               # skill 本地目录（优先）
+    Path.home() / ".doubao_asr_key",          # 用户主目录（备选）
+]
 
 
 def load_api_key():
-    """从配置文件加载 API Key"""
-    if KEY_FILE.exists():
-        key = KEY_FILE.read_text(encoding="utf-8").strip()
-        if key:
-            return key
-    # 也支持环境变量
+    """从配置文件加载 API Key
+
+    查找顺序：
+    1. skill 目录下的 api_key.txt
+    2. ~/.doubao_asr_key
+    3. 环境变量 DOUBAO_ASR_KEY
+    """
+    # 从配置文件查找
+    for key_file in KEY_FILES:
+        if key_file.exists():
+            key = key_file.read_text(encoding="utf-8").strip()
+            if key:
+                return key
+    # 从环境变量查找
     env_key = os.environ.get("DOUBAO_ASR_KEY", "").strip()
     if env_key:
         return env_key
@@ -379,7 +395,10 @@ def transcribe(audio_url_or_video, api_key=None, speakers=None, hotwords=None,
         api_key = load_api_key()
     if not api_key:
         print("❌ 未找到 API Key！")
-        print(f"   请运行: echo 'your-api-key' > {KEY_FILE}")
+        print(f"   请把 API Key 写入以下任一文件：")
+        print(f"   - {SKILL_DIR / 'api_key.txt'}（推荐，skill 本地目录）")
+        print(f"   - {Path.home() / '.doubao_asr_key'}（用户主目录）")
+        print(f"   或设置环境变量 DOUBAO_ASR_KEY")
         return None
 
     # 2. 获取音频 URL

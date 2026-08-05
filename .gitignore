@@ -17,6 +17,13 @@ thesis/
 __pycache__/
 .DS_Store
 
+# API Keys（敏感信息，禁止上传）
+api_key.txt
+**/api_key.txt
+*.api_key
+.env
+.env.*
+
 # 文档文件（非代码）
 *.docx
 *.pdf
